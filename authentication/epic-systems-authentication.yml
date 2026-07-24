@@ -1,0 +1,71 @@
+aid: epic-systems
+name: Epic Systems Authentication
+provider: Epic on FHIR
+date: '2026-07-24'
+reviewer: API Evangelist
+summary: >-
+  Epic's FHIR APIs are authorized with SMART on FHIR / OAuth 2.0. The live
+  R4 .well-known/smart-configuration was fetched anonymously and captured
+  verbatim at fhir/epic-fhir-r4-smart-configuration.json. Two SMART app
+  launch flows are supported (EHR launch and standalone launch), plus a
+  backend-services client-credentials flow using asymmetric (JWT) client
+  authentication for system-level and Bulk Data access.
+model: SMART on FHIR / OAuth 2.0
+wellKnown:
+  smartConfiguration: https://fhir.epic.com/interconnect-fhir-oauth/api/FHIR/R4/.well-known/smart-configuration
+  status: 200
+  capturedFile: fhir/epic-fhir-r4-smart-configuration.json
+endpoints:
+  issuer: https://fhir.epic.com/interconnect-fhir-oauth/oauth2
+  authorization: https://fhir.epic.com/interconnect-fhir-oauth/oauth2/authorize
+  token: https://fhir.epic.com/interconnect-fhir-oauth/oauth2/token
+grantTypesSupported:
+- authorization_code
+- refresh_token
+- client_credentials
+- urn:ietf:params:oauth:grant-type:jwt-bearer
+- urn:ietf:params:oauth:grant-type:token-exchange
+smartCapabilities:
+- launch-ehr
+- launch-standalone
+- client-public
+- client-confidential-symmetric
+- client-confidential-asymmetric
+- context-banner
+- context-style
+- context-ehr-patient
+- context-ehr-encounter
+- context-standalone-patient
+- permission-offline
+- permission-patient
+- permission-user
+- permission-v1
+- permission-v2
+- sso-openid-connect
+- authorize-post
+scopeModel:
+  note: >-
+    Epic uses SMART on FHIR scope grammar. The smart-configuration advertises
+    base scopes (openid, profile, fhirUser, launch). Resource access is granted
+    with SMART v1/v2 scopes of the form patient/<Resource>.<read|search|...>,
+    user/<Resource>.<...>, and system/<Resource>.<...> negotiated per registered
+    client and health-system authorization; both permission-v1 and permission-v2
+    scope styles are supported.
+  advertisedScopes:
+  - epic.scanning.dmsusername
+  - fhirUser
+  - launch
+  - openid
+  - profile
+capabilityStatementSecurity:
+  service:
+  - OAuth
+  - SMART-on-FHIR
+  - Basic
+  oauthUris:
+    authorize: https://fhir.epic.com/interconnect-fhir-oauth/oauth2/authorize
+    token: https://fhir.epic.com/interconnect-fhir-oauth/oauth2/token
+gating: >-
+  The sandbox is openly reachable for testing; production access requires app
+  registration on the Epic on FHIR developer portal plus a connected health
+  system's activation of the app.

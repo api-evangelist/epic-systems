@@ -1,0 +1,196 @@
+aid: epic-systems
+name: Epic Systems
+review:
+  question: Does Epic Systems expose a documented public healthcare API surface, and what is its machine-readable contract?
+  answer: true
+  date: '2026-07-24'
+  reviewer: API Evangelist
+  homeMarket: United States
+  developerPortal:
+    url: https://fhir.epic.com/
+    status: 200
+    confirmed: true
+    note: >-
+      "Epic on FHIR" is Epic's free public developer portal (also reachable at
+      https://open.epic.com/, status 200). It provides a testing sandbox,
+      client registration, FHIR specifications, and developer documentation.
+  fhirCapability:
+    captured: true
+    versions:
+    - version: R4
+      fhirVersion: 4.0.1
+      resourceType: CapabilityStatement
+      metadataUrl: https://fhir.epic.com/interconnect-fhir-oauth/api/FHIR/R4/metadata
+      status: 200
+      software: Epic (May 2026, releaseDate 2026-05-11)
+      resourceTypeCount: 59
+      interactions:
+        read: 59
+        search-type: 56
+        create: 11
+        update: 7
+      file: fhir/epic-fhir-r4-capabilitystatement.json
+    - version: STU3
+      fhirVersion: 3.0.1
+      resourceType: CapabilityStatement
+      metadataUrl: https://fhir.epic.com/interconnect-fhir-oauth/api/FHIR/STU3/metadata
+      status: 200
+      file: fhir/epic-fhir-stu3-capabilitystatement.json
+    - version: DSTU2
+      fhirVersion: 1.0.2
+      resourceType: Conformance
+      metadataUrl: https://fhir.epic.com/interconnect-fhir-oauth/api/FHIR/DSTU2/metadata
+      status: 200
+      resourceTypeCount: 17
+      file: fhir/epic-fhir-dstu2-conformance.json
+    smartConfiguration:
+      captured: true
+      url: https://fhir.epic.com/interconnect-fhir-oauth/api/FHIR/R4/.well-known/smart-configuration
+      status: 200
+      file: fhir/epic-fhir-r4-smart-configuration.json
+  downloadableSpecs:
+    openapi: false
+    note: >-
+      No REST OpenAPI/Swagger document is published. The machine-readable
+      contract in this ecosystem is the FHIR CapabilityStatement/Conformance,
+      three of which were harvested verbatim (R4, STU3, DSTU2) alongside the
+      SMART on FHIR .well-known/smart-configuration.
+    capabilityStatementsSaved: 3
+    smartConfigurationsSaved: 1
+    totalSpecsSaved: 4
+  authModel:
+    scheme: SMART on FHIR / OAuth 2.0
+    issuer: https://fhir.epic.com/interconnect-fhir-oauth/oauth2
+    authorizationEndpoint: https://fhir.epic.com/interconnect-fhir-oauth/oauth2/authorize
+    tokenEndpoint: https://fhir.epic.com/interconnect-fhir-oauth/oauth2/token
+    grantTypes:
+    - authorization_code
+    - refresh_token
+    - client_credentials
+    - urn:ietf:params:oauth:grant-type:jwt-bearer
+    - urn:ietf:params:oauth:grant-type:token-exchange
+    smartLaunch:
+    - launch-ehr
+    - launch-standalone
+    clientAuth:
+    - client-public
+    - client-confidential-symmetric
+    - client-confidential-asymmetric
+    scopeStyles:
+    - permission-v1
+    - permission-v2
+    - permission-patient
+    - permission-user
+    - permission-offline
+    smartScopeGrammar: patient/<Resource>.<read|search>, user/<Resource>.<...>, system/<Resource>.<...>
+  standardsConformance:
+    usCore: true
+    usCoreNote: Epic's R4 API is aligned to the US Core implementation guides (US national market).
+    ukCore: false
+    auCore: false
+    daVinci: partial
+    daVinciNote: >-
+      Payer-facing Da Vinci support (e.g. PDex/CDex/Prior Authorization) is
+      offered through Epic's payer platform but was not confirmed via the public
+      sandbox CapabilityStatement during this bootstrap review.
+    carin: partial
+    carinNote: >-
+      CARIN Blue Button-style claims access is represented by Coverage,
+      ExplanationOfBenefit, and Claim resources present in the R4
+      CapabilityStatement, but a dedicated CARIN IG endpoint was not separately
+      confirmed here.
+    bulkData: true
+    bulkDataNote: FHIR Bulk Data Access ($export) is documented on Epic on FHIR.
+    cdsHooks: true
+  accessPosture:
+    sandbox: self-serve (open sandbox testing)
+    production: partner-gated (app registration + connected health system activation)
+    pricing: enterprise (sales/health-system led; not publicly listed)
+findings:
+  summary: |
+    Epic Systems runs a real, standards-based public developer surface under
+    "Epic on FHIR" (https://fhir.epic.com/, status 200; mirror
+    https://open.epic.com/, status 200). The machine-readable contracts are HL7
+    FHIR CapabilityStatement / Conformance documents rather than OpenAPI. Three
+    live public sandbox conformance documents were fetched anonymously and saved
+    verbatim: R4 (fhirVersion 4.0.1, 59 resource types, Epic May 2026 software),
+    STU3 (3.0.1), and DSTU2 (1.0.2, a FHIR Conformance resource). The R4
+    CapabilityStatement advertises read on all 59 resources, search-type on 56,
+    create on 11, and update on 7, and its security block declares OAuth,
+    SMART-on-FHIR, and Basic services with authorize/token OAuth URIs. The R4
+    .well-known/smart-configuration (status 200) was also captured verbatim,
+    confirming SMART on FHIR / OAuth 2.0 with authorization_code, refresh_token,
+    client_credentials, jwt-bearer, and token-exchange grants, both EHR and
+    standalone SMART launch, asymmetric confidential clients, OpenID Connect,
+    and SMART v1/v2 permission scopes. No REST OpenAPI/Swagger is published. The
+    sandbox is openly testable; production access is gated behind app
+    registration and a connected health system's activation. Home market is the
+    United States, with the R4 API aligned to US Core.
+  transports:
+  - protocol: REST
+    scheme: https
+    baseURL: https://fhir.epic.com/interconnect-fhir-oauth/api/FHIR/R4
+    documented: true
+  - protocol: REST
+    scheme: https
+    baseURL: https://fhir.epic.com/interconnect-fhir-oauth/api/FHIR/STU3
+    documented: true
+  - protocol: REST
+    scheme: https
+    baseURL: https://fhir.epic.com/interconnect-fhir-oauth/api/FHIR/DSTU2
+    documented: true
+  - protocol: WebSocket
+    scheme: wss
+    documented: false
+    note: No WebSocket endpoint is documented on the Epic on FHIR portal as of the review date.
+  endpointsConfirmed:
+  - GET https://fhir.epic.com/interconnect-fhir-oauth/api/FHIR/R4/metadata (200)
+  - GET https://fhir.epic.com/interconnect-fhir-oauth/api/FHIR/STU3/metadata (200)
+  - GET https://fhir.epic.com/interconnect-fhir-oauth/api/FHIR/DSTU2/metadata (200)
+  - GET https://fhir.epic.com/interconnect-fhir-oauth/api/FHIR/R4/.well-known/smart-configuration (200)
+  - POST https://fhir.epic.com/interconnect-fhir-oauth/oauth2/authorize
+  - POST https://fhir.epic.com/interconnect-fhir-oauth/oauth2/token
+sources:
+- url: https://fhir.epic.com/
+  type: DeveloperPortal
+  status: 200
+  note: Epic on FHIR developer portal - sandbox, client registration, docs, specifications.
+- url: https://open.epic.com/
+  type: DeveloperPortal
+  status: 200
+  note: open.epic mirror of the Epic on FHIR program.
+- url: https://fhir.epic.com/Specifications
+  type: APIReference
+  status: 200
+  note: FHIR specifications listing.
+- url: https://fhir.epic.com/interconnect-fhir-oauth/api/FHIR/R4/metadata
+  type: CapabilityStatement
+  status: 200
+  note: R4 CapabilityStatement, fhirVersion 4.0.1, 59 resources; saved verbatim.
+- url: https://fhir.epic.com/interconnect-fhir-oauth/api/FHIR/STU3/metadata
+  type: CapabilityStatement
+  status: 200
+  note: STU3 CapabilityStatement, fhirVersion 3.0.1; saved verbatim.
+- url: https://fhir.epic.com/interconnect-fhir-oauth/api/FHIR/DSTU2/metadata
+  type: Conformance
+  status: 200
+  note: DSTU2 Conformance, fhirVersion 1.0.2; saved verbatim.
+- url: https://fhir.epic.com/interconnect-fhir-oauth/api/FHIR/R4/.well-known/smart-configuration
+  type: SMARTConfiguration
+  status: 200
+  note: SMART on FHIR / OAuth 2.0 configuration; saved verbatim.
+actions:
+  apisYmlUpdated: true
+  specsSaved:
+  - fhir/epic-fhir-r4-capabilitystatement.json
+  - fhir/epic-fhir-stu3-capabilitystatement.json
+  - fhir/epic-fhir-dstu2-conformance.json
+  - fhir/epic-fhir-r4-smart-configuration.json
+  reason: >-
+    Captured Epic's real, live FHIR interoperability surface across three FHIR
+    versions plus SMART on FHIR authorization; modeled the documented FHIR R4 /
+    STU3 / DSTU2 REST products, the SMART on FHIR authorization surface, Bulk
+    Data Access, and CDS Hooks as separate apis[] entries in apis.yml.
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

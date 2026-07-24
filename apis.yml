@@ -1,0 +1,196 @@
+aid: epic-systems
+url: https://raw.githubusercontent.com/api-evangelist/epic-systems/refs/heads/main/apis.yml
+name: Epic Systems
+kind: company
+description: >-
+  Epic Systems Corporation is a privately held electronic health record (EHR/EMR)
+  software company founded in 1979 and headquartered in Verona, Wisconsin, United
+  States. Epic's software supports the medical records of a large share of U.S.
+  hospital systems and academic medical centers, and its "Epic on FHIR" developer
+  program (fhir.epic.com / open.epic.com) exposes a standards-based HL7 FHIR
+  interoperability surface for patient- and provider-facing apps. Epic serves
+  live, public sandbox FHIR endpoints across three FHIR versions - R4 (4.0.1),
+  STU3 (3.0.1), and DSTU2 (1.0.2) - aligned to the US Core implementation guides,
+  with SMART on FHIR / OAuth 2.0 authorization, CDS Hooks, and FHIR Bulk Data
+  ($export) access. Production access requires client registration and a health
+  system's participation; the developer sandbox, specifications, and
+  CapabilityStatements are openly published. Epic is a core node of the U.S.
+  healthcare interoperability landscape shaped by the ONC/CMS 21st Century Cures
+  Act information-blocking rules and TEFCA.
+accessModel:
+  pricing: enterprise
+  onboarding: partner
+  trial: true
+  try_now: false
+  public: false
+  label: Enterprise · Sandbox self-serve · Production partner-gated
+  confidence: high
+  source:
+  - authentication
+  - well-known
+  generated: '2026-07-24'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+tags:
+- Healthcare
+- United States
+- EHR
+- EMR
+- FHIR
+- HL7
+- Interoperability
+- SMART on FHIR
+- US Core
+- Clinical Data
+created: '2026-07-24'
+modified: '2026-07-24'
+specificationVersion: '0.19'
+apis:
+- aid: epic-systems:epic-fhir-r4-api
+  name: Epic FHIR R4 API
+  description: >-
+    Epic's HL7 FHIR R4 (4.0.1) REST API, aligned to the US Core implementation
+    guides and exposing 59 resource types (Patient, Encounter, Observation,
+    Condition, MedicationRequest, DiagnosticReport, DocumentReference,
+    Appointment, Coverage, ExplanationOfBenefit, and more) with read,
+    search-type, create, and update interactions. Authorized with SMART on
+    FHIR / OAuth 2.0. A live public sandbox CapabilityStatement was harvested
+    verbatim.
+  humanURL: https://fhir.epic.com/Specifications
+  baseURL: https://fhir.epic.com/interconnect-fhir-oauth/api/FHIR/R4
+  tags:
+  - FHIR
+  - R4
+  - US Core
+  properties:
+  - type: CapabilityStatement
+    url: fhir/epic-fhir-r4-capabilitystatement.json
+  - type: SMARTConfiguration
+    url: fhir/epic-fhir-r4-smart-configuration.json
+  - type: Documentation
+    url: https://fhir.epic.com/Documentation?docId=fhirtutorial
+  - type: APIReference
+    url: https://fhir.epic.com/Specifications
+  - type: Authentication
+    url: https://fhir.epic.com/Documentation?docId=oauth2
+- aid: epic-systems:epic-fhir-stu3-api
+  name: Epic FHIR STU3 API
+  description: >-
+    Epic's HL7 FHIR STU3 (3.0.1) REST API for clinical and administrative
+    resources, authorized with SMART on FHIR / OAuth 2.0. A live public sandbox
+    CapabilityStatement was harvested verbatim.
+  humanURL: https://fhir.epic.com/Specifications
+  baseURL: https://fhir.epic.com/interconnect-fhir-oauth/api/FHIR/STU3
+  tags:
+  - FHIR
+  - STU3
+  properties:
+  - type: CapabilityStatement
+    url: fhir/epic-fhir-stu3-capabilitystatement.json
+  - type: Documentation
+    url: https://fhir.epic.com/Documentation?docId=fhirtutorial
+  - type: APIReference
+    url: https://fhir.epic.com/Specifications
+  - type: Authentication
+    url: https://fhir.epic.com/Documentation?docId=oauth2
+- aid: epic-systems:epic-fhir-dstu2-api
+  name: Epic FHIR DSTU2 API
+  description: >-
+    Epic's HL7 FHIR DSTU2 (1.0.2) REST API, published as a FHIR Conformance
+    resource covering the legacy DSTU2 resource set. A live public sandbox
+    Conformance statement was harvested verbatim.
+  humanURL: https://fhir.epic.com/Specifications
+  baseURL: https://fhir.epic.com/interconnect-fhir-oauth/api/FHIR/DSTU2
+  tags:
+  - FHIR
+  - DSTU2
+  properties:
+  - type: CapabilityStatement
+    url: fhir/epic-fhir-dstu2-conformance.json
+  - type: Documentation
+    url: https://fhir.epic.com/Documentation?docId=fhirtutorial
+  - type: APIReference
+    url: https://fhir.epic.com/Specifications
+  - type: Authentication
+    url: https://fhir.epic.com/Documentation?docId=oauth2
+- aid: epic-systems:epic-smart-on-fhir-authorization
+  name: Epic SMART on FHIR Authorization
+  description: >-
+    Epic's SMART on FHIR / OAuth 2.0 authorization surface backing the FHIR
+    APIs. The live .well-known/smart-configuration advertises authorize/token
+    endpoints, grant types (authorization_code, refresh_token,
+    client_credentials, jwt-bearer, token-exchange), SMART capabilities
+    (launch-ehr, launch-standalone, client-confidential-asymmetric,
+    permission-patient/user/v2), and OpenID Connect. Captured verbatim.
+  humanURL: https://fhir.epic.com/Documentation?docId=oauth2
+  baseURL: https://fhir.epic.com/interconnect-fhir-oauth/oauth2
+  tags:
+  - SMART on FHIR
+  - OAuth2
+  - Authorization
+  properties:
+  - type: SMARTConfiguration
+    url: fhir/epic-fhir-r4-smart-configuration.json
+  - type: Documentation
+    url: https://fhir.epic.com/Documentation?docId=oauth2
+  - type: Authentication
+    url: authentication/epic-systems-authentication.yml
+- aid: epic-systems:epic-fhir-bulk-data-api
+  name: Epic FHIR Bulk Data Access API
+  description: >-
+    Epic's implementation of the HL7 FHIR Bulk Data Access (Flat FHIR)
+    specification, providing backend system-level population export via the
+    $export operation, authorized with OAuth 2.0 client-credentials
+    (asymmetric client authentication). Documented on Epic on FHIR; production
+    access is client-registration and health-system gated.
+  humanURL: https://fhir.epic.com/Documentation?docId=bulkdataaccesstutorial
+  baseURL: https://fhir.epic.com/interconnect-fhir-oauth/api/FHIR/R4
+  tags:
+  - FHIR
+  - Bulk Data
+  - Backend Services
+  properties:
+  - type: Documentation
+    url: https://fhir.epic.com/Documentation?docId=bulkdataaccesstutorial
+  - type: APIReference
+    url: https://fhir.epic.com/Specifications
+- aid: epic-systems:epic-cds-hooks-api
+  name: Epic CDS Hooks API
+  description: >-
+    Epic's support for the CDS Hooks specification, letting external clinical
+    decision support services return cards and SMART app launch links at
+    documented workflow hook points inside the Epic EHR. Documented on Epic on
+    FHIR; production access is client-registration and health-system gated.
+  humanURL: https://fhir.epic.com/Documentation?docId=cdshookstutorial
+  baseURL: https://fhir.epic.com/interconnect-fhir-oauth
+  tags:
+  - CDS Hooks
+  - Clinical Decision Support
+  - SMART on FHIR
+  properties:
+  - type: Documentation
+    url: https://fhir.epic.com/Documentation?docId=cdshookstutorial
+  - type: APIReference
+    url: https://fhir.epic.com/Specifications
+common:
+- type: Website
+  url: https://www.epic.com/
+- type: DeveloperPortal
+  url: https://fhir.epic.com/
+- type: Documentation
+  url: https://fhir.epic.com/Documentation
+- type: APIReference
+  url: https://fhir.epic.com/Specifications
+- type: GettingStarted
+  url: https://fhir.epic.com/Documentation?docId=fhirtutorial
+- type: Authentication
+  url: authentication/epic-systems-authentication.yml
+- type: SignUp
+  url: https://fhir.epic.com/Developer/Index
+- type: TermsOfService
+  url: https://fhir.epic.com/Download/ApiLicenseAgreement
+- type: LinkedIn
+  url: https://www.linkedin.com/company/epic1979/
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com
