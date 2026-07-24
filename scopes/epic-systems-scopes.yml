@@ -1,0 +1,52 @@
+generated: '2026-07-24'
+method: searched
+source: fhir/epic-fhir-r4-smart-configuration.json, well-known/epic-systems-openid-configuration.json
+docs: https://fhir.epic.com/Documentation?docId=oauth2
+note: >-
+  Epic authorizes its FHIR APIs with SMART on FHIR scopes layered on OAuth 2.0.
+  The five scopes below are the base scopes advertised anonymously in the live
+  R4 smart-configuration / openid-configuration (scopes_supported). Clinical
+  resource access is granted with SMART v1/v2 scope grammar (both
+  permission-v1 and permission-v2 advertised), negotiated per registered client
+  and per connected health system - these are not enumerated in the discovery
+  document, so the grammar and per-context patterns are documented below rather
+  than as fixed strings.
+schemes:
+- name: SMART-on-FHIR-OAuth2
+  source: fhir/epic-fhir-r4-smart-configuration.json
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://fhir.epic.com/interconnect-fhir-oauth/oauth2/authorize
+    tokenUrl: https://fhir.epic.com/interconnect-fhir-oauth/oauth2/token
+    pkce: S256
+  - flow: clientCredentials
+    tokenUrl: https://fhir.epic.com/interconnect-fhir-oauth/oauth2/token
+    note: SMART Backend Services; private_key_jwt (asymmetric) client authentication; system-level scopes; backs Bulk Data $export.
+advertised_scopes:
+- scope: openid
+  description: OpenID Connect - request an id_token identifying the end user.
+- scope: profile
+  description: OpenID Connect profile claims for the authenticated user.
+- scope: fhirUser
+  description: Return the FHIR resource (Practitioner/Patient/RelatedPerson) representing the current user.
+- scope: launch
+  description: SMART EHR-launch context (patient/encounter) passed from the Epic launch.
+- scope: epic.scanning.dmsusername
+  description: Epic-specific scope exposing the document-management scanning username (Epic extension).
+scope_grammar:
+  detail: >-
+    Clinical access uses SMART scopes of the form <context>/<Resource>.<access>.
+    Context prefixes - patient/ (single in-context patient), user/ (everything the
+    authenticated user may see), system/ (backend, no user, for client_credentials).
+    Access - SMART v1 uses .read / .write / .* ; SMART v2 uses granular
+    .c (create) .r (read) .u (update) .d (delete) .s (search), e.g. patient/Observation.rs.
+  examples:
+  - patient/Patient.read
+  - patient/Observation.read
+  - patient/MedicationRequest.read
+  - user/Encounter.read
+  - system/Patient.read
+  - system/Group.read     # backend Bulk Data cohort export
+  additional:
+  - offline_access   # permission-offline: obtain a refresh_token
+  resources_scopable: 59 R4 resource types (see data-model/epic-systems-data-model.yml); STU3 (35) and DSTU2 (17) expose narrower sets.

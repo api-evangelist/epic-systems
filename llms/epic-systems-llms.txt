@@ -1,0 +1,43 @@
+# Epic Systems
+
+> Epic Systems Corporation is a privately held electronic health record (EHR/EMR) software company founded in 1979 in Verona, Wisconsin, whose "Epic on FHIR" program (fhir.epic.com / open.epic.com) exposes a standards-based HL7 FHIR interoperability surface across three FHIR versions - R4 (4.0.1), STU3 (3.0.1), and DSTU2 (1.0.2) - aligned to US Core, secured with SMART on FHIR / OAuth 2.0, plus FHIR Bulk Data ($export) and CDS Hooks. The sandbox is openly testable; production access is app-registration and health-system gated.
+
+## APIs
+
+- [Epic FHIR R4 API](https://fhir.epic.com/Specifications): HL7 FHIR R4 (4.0.1) REST API, US Core aligned, 59 resource types (read/search/create/update). Base https://fhir.epic.com/interconnect-fhir-oauth/api/FHIR/R4
+- [Epic FHIR STU3 API](https://fhir.epic.com/Specifications): HL7 FHIR STU3 (3.0.1), 35 resource types. Base https://fhir.epic.com/interconnect-fhir-oauth/api/FHIR/STU3
+- [Epic FHIR DSTU2 API](https://fhir.epic.com/Specifications): HL7 FHIR DSTU2 (1.0.2), 17 resource types (legacy). Base https://fhir.epic.com/interconnect-fhir-oauth/api/FHIR/DSTU2
+- [Epic SMART on FHIR Authorization](https://fhir.epic.com/Documentation?docId=oauth2): OAuth 2.0 / SMART on FHIR authorize + token endpoints, EHR & standalone launch, backend services.
+- [Epic FHIR Bulk Data Access API](https://fhir.epic.com/Documentation?docId=bulkdataaccesstutorial): FHIR Bulk Data ($export) via SMART Backend Services (client_credentials, private_key_jwt).
+- [Epic CDS Hooks API](https://fhir.epic.com/Documentation?docId=cdshookstutorial): CDS Hooks - external CDS services return cards / SMART launch links at EHR workflow hook points.
+
+## Specs
+
+- [R4 CapabilityStatement](https://fhir.epic.com/interconnect-fhir-oauth/api/FHIR/R4/metadata): fhir/epic-fhir-r4-capabilitystatement.json (fhirVersion 4.0.1)
+- [STU3 CapabilityStatement](https://fhir.epic.com/interconnect-fhir-oauth/api/FHIR/STU3/metadata): fhir/epic-fhir-stu3-capabilitystatement.json
+- [DSTU2 Conformance](https://fhir.epic.com/interconnect-fhir-oauth/api/FHIR/DSTU2/metadata): fhir/epic-fhir-dstu2-conformance.json
+- [SMART configuration](https://fhir.epic.com/interconnect-fhir-oauth/api/FHIR/R4/.well-known/smart-configuration): fhir/epic-fhir-r4-smart-configuration.json
+- [OpenID configuration](https://fhir.epic.com/interconnect-fhir-oauth/oauth2/.well-known/openid-configuration): well-known/epic-systems-openid-configuration.json
+
+## Artifacts
+
+- Authentication profile: authentication/epic-systems-authentication.yml
+- OAuth / SMART scopes: scopes/epic-systems-scopes.yml
+- Standards conformance: conformance/epic-systems-conformance.yml
+- API conventions (pagination, idempotency, errors): conventions/epic-systems-conventions.yml
+- Error catalog (FHIR OperationOutcome): errors/epic-systems-problem-types.yml
+- Data model (FHIR resource graph): data-model/epic-systems-data-model.yml
+- Lifecycle / versioning: lifecycle/epic-systems-lifecycle.yml
+- CDS Hooks webhook surface: asyncapi/epic-systems-cds-hooks-webhooks.yml
+- Domain security probe: security/epic-systems-domain-security.yml
+- Vulnerability disclosure: security/epic-systems-vulnerability-disclosure.yml
+- Well-known index: well-known/epic-systems-well-known.yml
+
+## Docs
+
+- [Epic on FHIR developer portal](https://fhir.epic.com/)
+- [open.epic](https://open.epic.com/)
+- [FHIR tutorial / getting started](https://fhir.epic.com/Documentation?docId=fhirtutorial)
+- [OAuth 2.0 / SMART on FHIR guide](https://fhir.epic.com/Documentation?docId=oauth2)
+- [Specifications](https://fhir.epic.com/Specifications)
+- [Security vulnerability reporting](https://www.epic.com/epic/page/reporting-potential-security-vulnerability/)

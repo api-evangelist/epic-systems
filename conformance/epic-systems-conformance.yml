@@ -1,0 +1,52 @@
+generated: '2026-07-24'
+method: derived
+source: fhir/epic-fhir-r4-capabilitystatement.json, fhir/epic-fhir-r4-smart-configuration.json, well-known/epic-systems-openid-configuration.json, Epic on FHIR documentation
+note: >-
+  Standards conformance derived from the live sandbox CapabilityStatement /
+  Conformance documents and the SMART on FHIR / OIDC discovery documents
+  harvested verbatim. Epic is a producer of standards-based healthcare
+  interoperability surfaces; conformance here means the API implements the named
+  specification, evidenced in machine-readable metadata.
+standards:
+- id: hl7-fhir-r4
+  conforms: true
+  evidence: R4 CapabilityStatement fhirVersion 4.0.1; 59 resource types with read/search-type/create/update interactions.
+- id: hl7-fhir-stu3
+  conforms: true
+  evidence: STU3 CapabilityStatement fhirVersion 3.0.1; 35 resource types.
+- id: hl7-fhir-dstu2
+  conforms: true
+  evidence: DSTU2 Conformance resource fhirVersion 1.0.2; 17 resource types (legacy).
+- id: us-core-6.1.0
+  conforms: true
+  evidence: R4 CapabilityStatement instantiates http://hl7.org/fhir/us/core/CapabilityStatement/us-core-server|6.1.0.
+- id: smart-on-fhir
+  conforms: true
+  evidence: security.service declares SMART-on-FHIR; smart-configuration advertises launch-ehr, launch-standalone, client-confidential-asymmetric, permission-v1, permission-v2.
+- id: smart-app-launch
+  conforms: true
+  evidence: EHR launch and standalone launch capabilities advertised; context-ehr-patient / context-standalone-patient.
+- id: smart-backend-services
+  conforms: true
+  evidence: client_credentials grant + private_key_jwt (asymmetric) client auth; system-level scopes; backs Bulk Data $export.
+- id: oauth2
+  conforms: true
+  evidence: security.service declares OAuth; authorize/token endpoints under .../oauth2; grants authorization_code, refresh_token, client_credentials, jwt-bearer, token-exchange.
+- id: oauth2-pkce
+  conforms: true
+  evidence: smart-configuration code_challenge_methods_supported = [S256].
+- id: openid-connect
+  conforms: true
+  evidence: openid-configuration served; sso-openid-connect capability; id_token_signing_alg_values_supported = [RS256]; scopes include openid, profile, fhirUser.
+- id: hl7-fhir-bulk-data
+  conforms: true
+  evidence: R4 CapabilityStatement instantiates http://hl7.org/fhir/uv/bulkdata/CapabilityStatement/bulk-data; $export documented on Epic on FHIR (bulkdataaccesstutorial).
+- id: cds-hooks
+  conforms: true
+  evidence: Epic on FHIR documents CDS Hooks (cdshookstutorial); external CDS services return cards / SMART app launch links at EHR workflow hook points.
+- id: rfc9457-problem-details
+  conforms: false
+  evidence: Errors are returned as FHIR OperationOutcome resources (application/fhir+json), not application/problem+json.
+- id: rfc9116-security-txt
+  conforms: true
+  evidence: well-known/epic-systems-security.txt (RFC 9116, PGP-signed) served at www.epic.com.

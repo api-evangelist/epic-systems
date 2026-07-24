@@ -1,0 +1,72 @@
+generated: '2026-07-24'
+method: derived
+source: fhir/epic-fhir-r4-capabilitystatement.json + HL7 FHIR R4 RESTful conventions + Epic on FHIR documentation
+note: >-
+  Cross-cutting request/response semantics for Epic's FHIR APIs. Epic implements
+  the HL7 FHIR R4 RESTful API, so these conventions follow the FHIR specification
+  as constrained by the harvested sandbox CapabilityStatement. Nothing here is
+  Epic-proprietary invention; it is the FHIR contract Epic advertises.
+authentication:
+  style: SMART on FHIR / OAuth 2.0 Bearer
+  header: 'Authorization: Bearer <access_token>'
+  detail: authentication/epic-systems-authentication.yml
+  scopes: scopes/epic-systems-scopes.yml
+idempotency:
+  supported: true
+  mechanism: http-semantics
+  detail: >-
+    Epic implements FHIR RESTful interactions. read (GET) and search-type (GET)
+    are safe and idempotent. update (PUT to [base]/[type]/[id]) is idempotent per
+    FHIR/HTTP semantics and is advertised on 7 R4 resources - a client may safely
+    retry the same PUT. There is no separate idempotency-key header; instead FHIR
+    uses version-aware optimistic concurrency.
+  concurrency:
+    etag: true
+    detail: Responses carry an ETag (resource versionId, W/"vid"); conditional writes use If-Match to prevent lost updates (412 on version conflict).
+  conditional_create:
+    advertised: false
+    note: The sandbox R4 CapabilityStatement does not advertise conditionalCreate (If-None-Exist), so POST create is not guaranteed idempotent in this deployment.
+pagination:
+  style: fhir-bundle-links
+  detail: >-
+    search-type interactions return a searchset Bundle. Page size is requested
+    with _count; navigation follows the Bundle.link entries with relation "next"
+    (and "self"/"previous"/"first"/"last" where present) rather than numeric
+    offsets. Total may be provided in Bundle.total.
+  params:
+  - _count      # results per page
+  request_response_fields:
+  - Bundle.link[relation=next].url
+  - Bundle.total
+  - Bundle.entry[].fullUrl
+search:
+  style: fhir-search
+  common_params:
+  - _id
+  - _lastUpdated
+  - _count
+  - _include
+  - _revInclude
+  detail: Resource-specific search parameters are declared per resource in the CapabilityStatement; _include/_revInclude supported (e.g. Provenance:target).
+content_negotiation:
+  formats:
+  - application/fhir+json
+  - application/fhir+xml
+  detail: CapabilityStatement.format = [xml, json]; select with Accept header or _format query param.
+versioning:
+  api_versioning: uri-path-fhir-version
+  detail: >-
+    FHIR version is selected by URL path segment - .../api/FHIR/R4, .../api/FHIR/STU3,
+    .../api/FHIR/DSTU2. Resource instance versions are addressable via history
+    (_history) and referenced by ETag/versionId. Epic software cadence is named
+    releases (e.g. "May 2026").
+  detail_ref: lifecycle/epic-systems-lifecycle.yml
+request_tracing:
+  detail: Standard HTTP; no documented custom request-id echo header in the sandbox CapabilityStatement.
+error_envelope:
+  shape: fhir-operationoutcome
+  media_type: application/fhir+json
+  detail: Errors are returned as a FHIR OperationOutcome resource with issue[] entries (severity, code, diagnostics), alongside the HTTP status.
+  detail_ref: errors/epic-systems-problem-types.yml
+rate_limiting:
+  detail: Epic does not publish a fixed public rate-limit table for the sandbox; production throughput is governed per connected health system and app registration.

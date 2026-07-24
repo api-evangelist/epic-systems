@@ -1,0 +1,27 @@
+generated: '2026-07-24'
+method: searched
+source: live probes of Epic hosts (www.epic.com, fhir.epic.com)
+hosts:
+- host: https://www.epic.com
+  documents:
+  - path: /.well-known/security.txt          # RFC 9116
+    status: 200
+    file: epic-systems-security.txt
+    note: PGP-signed; Contact securitycontact@epic.com; Policy links Epic's report-a-vulnerability page.
+- host: https://fhir.epic.com
+  documents:
+  - path: /interconnect-fhir-oauth/oauth2/.well-known/openid-configuration   # OIDC discovery
+    status: 200
+    file: epic-systems-openid-configuration.json
+    note: OpenID Connect discovery for the Epic on FHIR authorization server (issuer .../oauth2).
+  - path: /interconnect-fhir-oauth/api/FHIR/R4/.well-known/smart-configuration  # SMART on FHIR
+    status: 200
+    file: ../fhir/epic-fhir-r4-smart-configuration.json
+    note: SMART on FHIR configuration (captured in fhir/ during the bootstrap round).
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /interconnect-fhir-oauth/oauth2/.well-known/oauth-authorization-server   # RFC 8414
+    status: 404
+  - path: /.well-known/api-catalog   # RFC 9727
+    status: 302
+    note: Redirects; no machine-readable API catalog served.

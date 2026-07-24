@@ -173,6 +173,10 @@ apis:
   - type: APIReference
     url: https://fhir.epic.com/Specifications
 common:
+- type: VulnerabilityDisclosure
+  url: security/epic-systems-vulnerability-disclosure.yml
+- type: DomainSecurity
+  url: security/epic-systems-domain-security.yml
 - type: Website
   url: https://www.epic.com/
 - type: DeveloperPortal
@@ -191,6 +195,30 @@ common:
   url: https://fhir.epic.com/Download/ApiLicenseAgreement
 - type: LinkedIn
   url: https://www.linkedin.com/company/epic1979/
+- type: WellKnown
+  url: well-known/epic-systems-well-known.yml
+- type: SecurityTxt
+  url: well-known/epic-systems-security.txt
+- type: OAuthScopes
+  url: scopes/epic-systems-scopes.yml
+- type: Conformance
+  url: conformance/epic-systems-conformance.yml
+- type: Conventions
+  url: conventions/epic-systems-conventions.yml
+- type: Idempotency
+  url: conventions/epic-systems-conventions.yml
+- type: ErrorCatalog
+  url: errors/epic-systems-problem-types.yml
+- type: DataModel
+  url: data-model/epic-systems-data-model.yml
+- type: Lifecycle
+  url: lifecycle/epic-systems-lifecycle.yml
+- type: Webhooks
+  url: asyncapi/epic-systems-cds-hooks-webhooks.yml
+- type: LLMsTxt
+  url: llms/epic-systems-llms.txt
+- type: Security
+  url: https://www.epic.com/epic/page/reporting-potential-security-vulnerability/
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com

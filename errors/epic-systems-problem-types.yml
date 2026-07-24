@@ -1,0 +1,67 @@
+generated: '2026-07-24'
+method: derived
+format: fhir-operationoutcome
+source: HL7 FHIR R4 error handling + Epic on FHIR; envelope confirmed against fhir/epic-fhir-r4-capabilitystatement.json (FHIR REST server)
+note: >-
+  Epic's FHIR APIs do not use RFC 9457 application/problem+json. Errors are
+  returned as a FHIR OperationOutcome resource (media type application/fhir+json)
+  carrying issue[] entries, alongside the HTTP status. The table below maps the
+  HTTP statuses a FHIR RESTful server returns to their OperationOutcome issue
+  semantics. Issue.code values come from the HL7 issue-type value set.
+envelope:
+  resource_type: OperationOutcome
+  media_type: application/fhir+json
+  fields:
+  - issue[].severity   # fatal | error | warning | information
+  - issue[].code       # issue-type code, e.g. not-found, security, invalid, processing
+  - issue[].diagnostics
+  - issue[].details
+problems:
+- status: 400
+  issue_code: invalid
+  title: Malformed or invalid request
+  detail: The request body or search parameters could not be parsed or violated FHIR/US Core constraints.
+- status: 401
+  issue_code: login
+  title: Authentication required
+  detail: Missing, expired, or invalid OAuth 2.0 bearer token.
+- status: 403
+  issue_code: forbidden
+  title: Insufficient scope or authorization
+  detail: The token lacks the SMART scope (patient/user/system) required for the resource or interaction, or the app is not authorized for the connected system.
+- status: 404
+  issue_code: not-found
+  title: Resource not found
+  detail: The referenced FHIR resource id does not exist or is not accessible in this context.
+- status: 405
+  issue_code: not-supported
+  title: Interaction not supported
+  detail: The interaction (e.g. create/update/delete) is not advertised for this resource type in the CapabilityStatement.
+- status: 406
+  issue_code: not-supported
+  title: Unsupported response format
+  detail: The requested Accept / _format is not supported (only application/fhir+json and application/fhir+xml).
+- status: 410
+  issue_code: deleted
+  title: Resource deleted
+  detail: The resource previously existed and has been deleted.
+- status: 412
+  issue_code: conflict
+  title: Precondition failed
+  detail: An If-Match version precondition failed (optimistic-concurrency version conflict).
+- status: 422
+  issue_code: processing
+  title: Unprocessable content
+  detail: The request was syntactically valid but failed business/validation rules.
+- status: 429
+  issue_code: throttled
+  title: Too many requests
+  detail: Request throttled; back off and retry (production throughput governed per connected system).
+- status: 500
+  issue_code: exception
+  title: Server error
+  detail: An unexpected server-side error occurred processing the FHIR interaction.
+- status: 503
+  issue_code: transient
+  title: Service unavailable
+  detail: The FHIR server or a downstream Epic system was temporarily unavailable.

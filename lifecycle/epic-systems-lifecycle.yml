@@ -1,0 +1,43 @@
+generated: '2026-07-24'
+method: searched
+source: fhir/*.json CapabilityStatements + Epic on FHIR documentation
+note: >-
+  Epic ships a versioned, standards-based FHIR surface. Versioning is expressed
+  two ways - the FHIR spec version (selected by URL path) and Epic's named
+  software release cadence. Legacy FHIR versions remain served but new
+  development targets R4.
+versioning:
+  scheme: uri-path-fhir-version
+  current: R4 (fhirVersion 4.0.1)
+  versions:
+  - version: R4
+    fhirVersion: 4.0.1
+    status: current
+    base: https://fhir.epic.com/interconnect-fhir-oauth/api/FHIR/R4
+  - version: STU3
+    fhirVersion: 3.0.1
+    status: legacy-supported
+    base: https://fhir.epic.com/interconnect-fhir-oauth/api/FHIR/STU3
+  - version: DSTU2
+    fhirVersion: 1.0.2
+    status: legacy-supported
+    base: https://fhir.epic.com/interconnect-fhir-oauth/api/FHIR/DSTU2
+  software_release:
+    scheme: named-release
+    current: 'May 2026'
+    release_date: '2026-05-11'
+    detail: Epic delivers quarterly-named software releases; FHIR resource/API additions ship with each release and are announced through Epic on FHIR API change notifications.
+  docs: https://fhir.epic.com/Documentation?docId=fhir
+deprecation:
+  policy: >-
+    DSTU2 and STU3 are earlier FHIR trial-use versions retained for existing
+    integrations; new apps are directed to R4 / US Core. Epic communicates API
+    and resource changes through its Epic on FHIR change notifications rather
+    than a single public deprecation-policy page.
+  sunset_header: unknown
+sla:
+  detail: No public uptime SLA is published for the open sandbox; production availability is governed per connected health system.
+status_page:
+  public: false
+  detail: No public status page is published for the fhir.epic.com sandbox.
+deprecated_operations: []

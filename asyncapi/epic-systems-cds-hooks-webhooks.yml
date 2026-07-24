@@ -1,0 +1,38 @@
+generated: '2026-07-24'
+method: searched
+spec_type: Webhooks
+surface: CDS Hooks
+source: https://fhir.epic.com/Documentation?docId=cdshookstutorial
+note: >-
+  Epic does not publish an AsyncAPI document. Its documented event / push
+  integration surface is CDS Hooks: at defined workflow hook points inside the
+  Epic EHR, Epic invokes an external clinical-decision-support (CDS) service over
+  HTTPS with the hook context, and the service responds with cards and optional
+  SMART app launch links. From an integrator's perspective this is a
+  webhook-style outbound call from Epic to a registered service endpoint. The
+  hook types below are the CDS Hooks specification hook points; Epic implements a
+  documented subset that varies by software release. No FHIR Subscription /
+  event-notification channel is advertised in the sandbox CapabilityStatement.
+delivery:
+  transport: https-post
+  direction: epic-to-service   # Epic (EHR) calls the registered CDS service
+  request_body: CDS Hooks request (hook, hookInstance, context, prefetch/fhirServer)
+  response_body: CDS Hooks response (cards[], systemActions[])
+  auth: JWT-signed request from Epic; service verifies the Epic JWKS.
+hooks:
+- hook: patient-view
+  description: Fires when a user opens a patient's chart / record.
+- hook: order-select
+  description: Fires when a user selects one or more orders (before signing).
+- hook: order-sign
+  description: Fires when a user is about to sign one or more orders.
+- hook: appointment-book
+  description: Fires while a user is booking one or more appointments.
+- hook: encounter-start
+  description: Fires when a user starts a new encounter.
+- hook: encounter-discharge
+  description: Fires when a user is discharging a patient from an encounter.
+discovery:
+  detail: A CDS service publishes its services at GET {service-base}/cds-services; Epic is configured to call the registered endpoints.
+related:
+  smart_app_launch: Cards may return a SMART app launch link (link.type = smart) into a registered SMART on FHIR app.
