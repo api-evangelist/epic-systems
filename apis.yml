@@ -43,8 +43,13 @@ tags:
 - US Core
 - Clinical Data
 created: '2026-07-24'
-modified: '2026-07-24'
+modified: '2026-08-14'
 specificationVersion: '0.19'
+x-enrichment:
+  date: '2026-08-14'
+  status: enriched
+  artifacts_added: 14
+  pass: local-v1
 apis:
 - aid: epic-systems:epic-fhir-r4-api
   name: Epic FHIR R4 API
@@ -219,6 +224,30 @@ common:
   url: llms/epic-systems-llms.txt
 - type: Security
   url: https://www.epic.com/epic/page/reporting-potential-security-vulnerability/
+- type: Packages
+  url: packages/epic-systems-packages.yml
+- type: Sandbox
+  url: sandbox/epic-systems-sandbox.yml
+- type: ErrorCodes
+  url: errors/epic-systems-error-codes.yml
+- type: ChangeLog
+  url: changelog/epic-systems-changelog.yml
+- type: Deprecation
+  url: https://fhir.epic.com/Documentation?docId=developerguidelines
+- type: RateLimits
+  url: rate-limits/epic-systems-rate-limits.yml
+- type: Plans
+  url: plans/epic-systems-plans-pricing.yml
+- type: AgentSkill
+  url: skills/_index.yml
+- type: APICatalog
+  url: fhir/epic-systems-endpoint-catalog.yml
+- type: Support
+  url: https://open.epic.com/Home/Contact
+- type: PrivacyPolicy
+  url: https://www.epic.com/privacypolicies/
+- type: Portal
+  url: https://open.epic.com/
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com

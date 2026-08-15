@@ -1,0 +1,79 @@
+generated: '2026-08-14'
+method: searched
+source: https://fhir.epic.com/Documentation?docId=cms_prior_auth_playbook
+docs:
+- https://fhir.epic.com/Developer/Index
+- https://fhir.epic.com/Documentation?docId=epiconfhirrequestprocess
+- https://www.epic.com/about/
+note: >-
+  Epic Systems publishes no price list of any kind. The EHR platform itself is
+  sold enterprise-direct to health systems under a negotiated contract with no
+  public rate card, no online sign-up and no self-serve purchase path; that part
+  is a plain "contact us" enterprise sale. What Epic DOES state publicly is the
+  cost posture of its DEVELOPER programs, and those statements are recorded
+  below because they are the tiers a developer actually chooses between. Epic on
+  FHIR is explicitly free: "Epic on FHIR offers free app creation services and
+  API access to all developers." Vendor Services is a separate, optional
+  membership program offering individualized assistance and connectivity testing
+  - Epic does not publish its fee. Both are gates on ACCESS, not metered API
+  pricing: neither program bills per API call, and production access is granted
+  by each connected health system rather than purchased from Epic.
+pricing_model: enterprise-contract + free developer program
+metered_api_billing: false
+public_price_list: false
+currency: USD
+plan_count: 2
+plans:
+- name: Epic on FHIR
+  audience: any developer
+  price: 0
+  price_display: Free
+  currency: USD
+  billing_period: null
+  self_serve: true
+  included:
+  - Free app creation
+  - API access to the documented FHIR R4 / STU3 / DSTU2 surface
+  - Public sandbox with published test patients and Bulk Data test Group
+  - API specifications, Try It console, and OAuth 2.0 / SMART on FHIR documentation
+  limits:
+  - Sandbox use is self-serve; PRODUCTION access still requires each connected health system to download and enable the app.
+  - No published rate limits; per-customer InterConnect throughput applies (see rate-limits/).
+  url: https://fhir.epic.com/Developer/Index
+  source_quote: Epic on FHIR offers free app creation services and API access to all developers.
+- name: Vendor Services
+  audience: Epic community members and vendors seeking hands-on support
+  price: null
+  price_display: Not published
+  currency: null
+  billing_period: null
+  self_serve: false
+  included:
+  - Optional suite of benefits including individualized assistance with an app's data exchange
+  - General technical support
+  - Basic / limited connectivity testing tools
+  - Application creation and API access (same self-service app-creation process as Epic on FHIR)
+  limits:
+  - Membership program; Epic publishes no fee, term, or tier structure for it.
+  url: https://vendorservices.epic.com/
+  note: >-
+    Non-community members can JOIN Vendor Services to create applications and
+    receive support. Epic states the benefits but not the cost, so price is
+    recorded as null rather than guessed.
+adjacent_programs:
+  note: Named by Epic as accelerators attached to certain product categories, not as purchasable plans.
+  programs:
+  - name: Toolbox
+    detail: Support available to qualifying product categories.
+  - name: Showroom
+    url: https://showroom.epic.com/
+    detail: Designation/listing surface where qualifying products are highlighted to Epic customers.
+enterprise_platform:
+  detail: >-
+    The Epic EHR itself (Hyperspace, MyChart, Cogito, and the clinical modules)
+    is licensed to health systems under negotiated enterprise agreements. No
+    price, tier, or quote calculator is published anywhere on epic.com.
+  contact: https://www.epic.com/contact/
+related:
+  rate_limits: rate-limits/epic-systems-rate-limits.yml
+  sandbox: sandbox/epic-systems-sandbox.yml

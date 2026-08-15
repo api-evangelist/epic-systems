@@ -1,0 +1,38 @@
+generated: '2026-08-14'
+method: generated
+source: >-
+  fhir/epic-fhir-r4-capabilitystatement.json (resource types and interactions),
+  fhir/epic-fhir-r4-smart-configuration.json (auth), and the Epic on FHIR
+  documentation at https://fhir.epic.com/. Every operation named in a skill was
+  verified against the harvested CapabilityStatement; every error code was
+  verified against errors/epic-systems-error-codes.yml.
+note: >-
+  Epic publishes no OpenAPI. These skills are grounded instead in the live FHIR
+  CapabilityStatement Epic serves and harvested verbatim into fhir/ - the
+  machine-readable contract that plays OpenAPI's role for a FHIR server. Tool
+  and operation names use Epic's own published convention (Patient.Read,
+  Observation.Create), which Epic uses throughout its documentation and app
+  registration. No operation, error code, scope or test identity in these skills
+  was invented.
+skill_count: 3
+skills:
+- file: epic-systems-patient-context-read.md
+  name: Read a patient's clinical record from Epic (patient-context SMART app)
+  api: fhir/epic-fhir-r4-capabilitystatement.json
+  operations: [Patient.Read, Condition.Search, MedicationRequest.Search, AllergyIntolerance.Search, Observation.Search, DocumentReference.Search]
+- file: epic-systems-backend-bulk-export.md
+  name: Export a population from Epic with FHIR Bulk Data
+  api: fhir/epic-fhir-r4-capabilitystatement.json
+  operations: [Group.$group-export, Patient.Search, Immunization.Search]
+- file: epic-systems-write-back-observation.md
+  name: Write data back into an Epic chart
+  api: fhir/epic-fhir-r4-capabilitystatement.json
+  operations: [Observation.Create, AllergyIntolerance.Create, Condition.Create, DocumentReference.Create, Procedure.Create, ServiceRequest.Create, QuestionnaireResponse.Create]
+related:
+  conventions: conventions/epic-systems-conventions.yml
+  errors: errors/epic-systems-error-codes.yml
+  authentication: authentication/epic-systems-authentication.yml
+  scopes: scopes/epic-systems-scopes.yml
+  sandbox: sandbox/epic-systems-sandbox.yml
+  rate_limits: rate-limits/epic-systems-rate-limits.yml
+  endpoint_catalog: fhir/epic-systems-endpoint-catalog.yml

@@ -1,0 +1,101 @@
+generated: '2026-08-14'
+method: searched
+source: https://fhir.epic.com/Specifications
+docs:
+- https://fhir.epic.com/Specifications
+- https://fhir.epic.com/Documentation?docId=testpatients
+- https://fhir.epic.com/Documentation?docId=developerguidelines
+note: >-
+  Epic publishes NO numeric request-rate table, NO rate-limit response headers,
+  and NO documented 429 / Retry-After behaviour for its FHIR APIs. That is not a
+  documentation gap so much as a consequence of the deployment model: every
+  Epic FHIR endpoint is an instance run by an individual health system
+  ("community member") on its own InterConnect configuration, so throughput is
+  set per customer and negotiated per app rather than published by the vendor.
+  An agent integrating with Epic therefore cannot read a limit from a header or
+  a docs table - it must be defensive by construction. What Epic DOES publish,
+  and what is captured below, are hard result caps, a documented daily ceiling
+  surfaced as an error code, and quantified system-impact budgets an app must
+  meet to pass Epic's app review. These are real, published, enforceable
+  constraints, so they are recorded as limits; the absence of a per-second rate
+  is recorded as an absence.
+signaling:
+  headers: []
+  header_note: >-
+    No X-RateLimit-*, no RateLimit-*, and no Retry-After are documented for the
+    Epic FHIR APIs. There is no documented HTTP 429 response. Exhaustion is
+    surfaced instead inside the FHIR OperationOutcome as an Epic numeric error
+    code (see errors/epic-systems-error-codes.yml).
+  exhaustion_status: undocumented
+  exhaustion_signal: OperationOutcome issue with an Epic error code (e.g. 4135, 4127)
+limit_count: 5
+limits:
+- name: Daily document query ceiling
+  scope: per-app-per-customer
+  window: day
+  limit: null
+  detail: >-
+    Epic error code 4135 - Fatal - "Please try again tomorrow", logged when the
+    maximum number of document queries has been reached for the day. The numeric
+    ceiling is not published and is configured per community member.
+  observed_signal: 'OperationOutcome error code 4135'
+  source: https://fhir.epic.com/Specifications
+- name: Patient.Search result cap
+  scope: per-request
+  window: null
+  limit: 100
+  unit: results
+  detail: >-
+    Epic error code 4127 - Fatal - "Additional data may exist", logged whenever
+    Patient.Search exceeds 100 results. Callers must narrow the search rather
+    than page past the cap.
+  observed_signal: 'OperationOutcome error code 4127'
+  source: https://fhir.epic.com/Specifications
+- name: Search result processing cap
+  scope: per-request
+  window: null
+  limit: 100
+  unit: results
+  detail: >-
+    Epic error code 59133 - Information - "Processing issues", logged when fewer
+    data elements than required are included in the request OR when the search
+    exceeds 100 results.
+  observed_signal: 'OperationOutcome error code 59133'
+  source: https://fhir.epic.com/Specifications
+- name: Operational database consumption budget (peak)
+  scope: per-app-per-customer
+  window: 'peak hours (typically 07:00-19:00 local, varies by community member)'
+  limit: 1
+  unit: percent of overall Epic operational database (ODB) system resources
+  detail: >-
+    App Developer Guidelines requirement: an app consumes no more than 1% of overall ODB
+    system resources during peak hours. Epic further requires that an app making
+    a significant number of API calls provide programmatic guardrails and be
+    able to monitor and THROTTLE ITS OWN API call volume to mitigate system
+    load - the throttling obligation sits with the integrator, not the API.
+  source: https://fhir.epic.com/Documentation?docId=developerguidelines
+- name: Operational database consumption budget (off-peak)
+  scope: per-app-per-customer
+  window: non-peak hours
+  limit: 5
+  unit: percent of overall Epic operational database (ODB) system resources
+  detail: App Developer Guidelines requirement; same self-throttling obligation applies.
+  source: https://fhir.epic.com/Documentation?docId=developerguidelines
+sandbox_fair_use:
+  detail: >-
+    The public sandbox has no published numeric limit but carries explicit
+    fair-use rules - bound any recurring call schedule to about a week and
+    disable it once validated; do not loop across all sandbox records, exercise
+    a chosen subset instead.
+  source: https://fhir.epic.com/Documentation?docId=testpatients
+pagination_interaction:
+  detail: >-
+    Cached search sessions expire - Epic error code 4113, Fatal, "Session ID for
+    cached search results has expired", returned when a client requests a
+    previously paginated result set after expiry. A long-running agent walking
+    Bundle.link[next] must handle re-issue of the original search.
+  detail_ref: conventions/epic-systems-conventions.yml
+related:
+  errors: errors/epic-systems-error-codes.yml
+  conventions: conventions/epic-systems-conventions.yml
+  plans: plans/epic-systems-plans-pricing.yml

@@ -1,27 +1,85 @@
-generated: '2026-07-24'
+generated: '2026-08-14'
 method: searched
-source: live probes of Epic hosts (www.epic.com, fhir.epic.com)
+source: live probes of Epic hosts (www.epic.com, fhir.epic.com, open.epic.com) on 2026-07-24 and 2026-08-14
 hosts:
 - host: https://www.epic.com
   documents:
-  - path: /.well-known/security.txt          # RFC 9116
+  - path: /.well-known/security.txt
     status: 200
     file: epic-systems-security.txt
     note: PGP-signed; Contact securitycontact@epic.com; Policy links Epic's report-a-vulnerability page.
+  - path: /.well-known/agent-card.json
+    status: 404
+  - path: /.well-known/agent.json
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /llms.txt
+    status: 404
+    note: Not a /.well-known path; probed in the same pass and recorded here for completeness.
 - host: https://fhir.epic.com
   documents:
-  - path: /interconnect-fhir-oauth/oauth2/.well-known/openid-configuration   # OIDC discovery
+  - path: /interconnect-fhir-oauth/oauth2/.well-known/openid-configuration
     status: 200
     file: epic-systems-openid-configuration.json
     note: OpenID Connect discovery for the Epic on FHIR authorization server (issuer .../oauth2).
-  - path: /interconnect-fhir-oauth/api/FHIR/R4/.well-known/smart-configuration  # SMART on FHIR
+  - path: /interconnect-fhir-oauth/api/FHIR/R4/.well-known/smart-configuration
     status: 200
     file: ../fhir/epic-fhir-r4-smart-configuration.json
     note: SMART on FHIR configuration (captured in fhir/ during the bootstrap round).
   - path: /.well-known/security.txt
     status: 404
-  - path: /interconnect-fhir-oauth/oauth2/.well-known/oauth-authorization-server   # RFC 8414
+  - path: /interconnect-fhir-oauth/oauth2/.well-known/oauth-authorization-server
     status: 404
-  - path: /.well-known/api-catalog   # RFC 9727
+  - path: /.well-known/api-catalog
     status: 302
     note: Redirects; no machine-readable API catalog served.
+  - path: /.well-known/agent-card.json
+    status: 404
+  - path: /.well-known/agent.json
+    status: 404
+  - path: /.well-known/oauth-protected-resource
+    status: 200
+    note: SOFT-200, NOT a document. Returns the same 56,634-byte HTML shell fhir.epic.com serves for /mcp
+      and /api-docs. Treated as a miss.
+  - path: /llms.txt
+    status: 404
+- host: https://open.epic.com
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+    note: No RFC 9727 catalog at the well-known path - but Epic DOES publish a machine-readable endpoint
+      directory at /Endpoints/R4 and /Endpoints/DSTU2. Captured in fhir/epic-systems-endpoint-catalog.yml.
+  - path: /.well-known/agent-card.json
+    status: 404
+  - path: /llms.txt
+    status: 404
+  - path: /Endpoints/R4
+    status: 200
+    file: ../fhir/epic-fhir-endpoints-r4.json
+    note: Not a well-known path. HL7 FHIR Endpoint Bundle, 479 production customer endpoints, fetched
+      anonymously.
+  - path: /Endpoints/DSTU2
+    status: 200
+    file: ../fhir/epic-fhir-endpoints-dstu2.json
+    note: HL7 FHIR Endpoint Bundle, 490 production customer endpoints.
+  - path: /Endpoints/STU3
+    status: 200
+    note: Valid Bundle, ZERO entries - no customer publishes an STU3 production endpoint.
+summary:
+  real_documents_served:
+  - /.well-known/security.txt (www.epic.com, RFC 9116, PGP-signed)
+  - /interconnect-fhir-oauth/oauth2/.well-known/openid-configuration (fhir.epic.com)
+  - /interconnect-fhir-oauth/api/FHIR/R4/.well-known/smart-configuration (fhir.epic.com)
+  absent:
+  - agent-card.json / agent.json on all three hosts
+  - api-catalog on all three hosts
+  - oauth-authorization-server (RFC 8414)
+  - ai-plugin.json
+  - llms.txt on all three hosts
+  soft_200_warning: fhir.epic.com answers an identical 56,634-byte HTML shell for arbitrary paths. Any
+    200 from that host must be checked by body, not status.

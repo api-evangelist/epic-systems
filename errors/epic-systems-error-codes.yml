@@ -1,0 +1,217 @@
+generated: '2026-08-14'
+method: searched
+source: https://fhir.epic.com/Specifications
+docs:
+- https://fhir.epic.com/Specifications
+- https://fhir.epic.com/Documentation?docId=troubleshooting
+format: fhir-operationoutcome
+note: 'Epic publishes a numeric error-code registry alongside its FHIR API specifications. These codes
+  are NOT HTTP statuses and NOT RFC 9457 problem types - they are Epic-assigned identifiers surfaced inside
+  the FHIR OperationOutcome returned with the HTTP response, each carrying an HL7 issue severity (Fatal
+  / Warning / Information). They are the non-payments sibling of a decline-code table: the granular, vendor-specific
+  reason an otherwise well-formed FHIR call did not return what the caller expected. Two families are
+  published - a 4xxx/40000 family for Epic''s request-handling and authorization semantics (including
+  Break-the-Glass restrictions unique to EHR data), and a 59xxx family for content/profile validation.
+  Captured verbatim from Epic''s own specification pages. HTTP-status-level semantics live in errors/epic-systems-problem-types.yml;
+  this file is the code-level registry.'
+envelope:
+  resource_type: OperationOutcome
+  media_type: application/fhir+json
+  code_location: issue[].details.coding[].code (Epic numeric code); issue[].severity carries the severity
+    below
+severities:
+- Fatal
+- Warning
+- Information
+families:
+- prefix: 41xx
+  meaning: Request handling, search validation, authorization and Break-the-Glass restrictions
+- prefix: '40000'
+  meaning: Incoming table mapping errors
+- prefix: 591xx
+  meaning: Content validity against the FHIR specification or a profile, and business-rule failures
+error_code_count: 37
+error_codes:
+- code: '4100'
+  severity: Fatal
+  description: The resource request contained an invalid parameter
+  example: 'Invalid parameter such as a nonexistent patient ID: AllergyIntolerance?patient=foo'
+- code: '4101'
+  severity: Warning
+  description: Resource request returns no results
+  example: A request for data that was otherwise valid but no information was documented or found (i.e.
+    a patient with no pertinent implanted devices, or a demographic search where no patients met the search
+    criteria).
+- code: '4102'
+  severity: Fatal
+  description: The read resource request contained an invalid ID
+  example: 'Invalid Resource ID: AllergyIntolerance/foo'
+- code: '4103'
+  severity: Fatal
+  description: The resource requested has been deleted
+  example: A read request for a resource that was deleted in the system
+- code: '4104'
+  severity: Fatal
+  description: A required FHIR element was not available to send in the response
+  example: Failed to determine a SNOMED code for the smoking status.
+- code: '4107'
+  severity: Fatal
+  description: The read resource request has been merged
+  example: Requesting a Patient which has been merged - in this event, in addition to the error response,
+    we will respond with an HTTP Redirect status. To browsers and many HTTP clients, the redirect will
+    be transparent.
+- code: '4110'
+  severity: Fatal
+  description: No parameters are provided in the search request
+  example: 'An invalid search request such as : AllergyIntolerance?'
+- code: '4111'
+  severity: Fatal
+  description: Required search parameter missing from request
+  example: 'A request missing a required parameter (such as the patient): Condition?category=diagnosis'
+- code: '4112'
+  severity: Fatal
+  description: The resource request contained an invalid combination of parameters
+  example: 'A search containing multiple different patient ID: AllergyIntolerance?patient=[ID 1]&patient=[ID
+    2]'
+- code: '4113'
+  severity: Fatal
+  description: Session ID for cached search results has expired.
+  example: Making a request for previously accessed paginated search results after the search has expired.
+- code: '4115'
+  severity: Fatal
+  description: Required search parameter has an invalid value
+  example: 'An invalid parameter required for searching: Condition?Patient=[ID]&category=foo'
+- code: '4116'
+  severity: Fatal
+  description: Invalid query for session. This error only applies to DSTU2 version paging functionality.
+  example: 'Called in paging context if the user has gone to the next page of the same session but changed
+    the original query: AllergyIntolerance?patient=[ID 1] <-- original query AllergyIntolerance?patient=[ID
+    1]&page=2&session=123 <-- valid AllergyIntolerance?patient=[ID 2]&page=2&session=123 <-- error is
+    logged.'
+- code: '4117'
+  severity: Warning
+  description: No CVX code for Immunization resource
+  example: Request for an Immunization resource without a documented CVX code.
+- code: '4118'
+  severity: Fatal
+  description: User not authorized for request
+  example: Request data that the authenticated user is not allowed access to view (i.e. a patient asking
+    for data about a stranger's allergies).
+- code: '4119'
+  severity: Warning
+  description: Additional data may be present for patient
+  example: Request data while authenticated as an authorized patient or patient proxy. Inidicates that
+    data available to the patient may not be the complete medical record within the system.
+- code: '4122'
+  severity: Warning
+  description: An unknown query parameter was supplied by the client
+  example: A request with dateWritten on a resource for which the parameter is ignored. A request with
+    parameter zzzzzz on any resource.
+- code: '4127'
+  severity: Fatal
+  description: Additional data may exist
+  example: This error is logged whenever Patient.Search exceeds 100 results.
+- code: '4130'
+  severity: Fatal
+  description: Break-the-Glass security does not authorize you to access the selected patient/resource
+  example: 'The patient has a sensitive psychiatric visit and you are not part of the psychiatric or care
+    team. This is returned when you would attempt Encounter.Read on this encounter. Note: these checks
+    are configured by each health system and may vary based on their security policies.'
+- code: '4131'
+  severity: Fatal
+  description: The patient you are attempting to access is restricted. You must break the glass to access
+    patient data.
+  example: 'The patient is a hospital employee so extra protection is in place such that only those who
+    have provided a reason to access the chart can access all data. This is returned when you attempt
+    a Patient.Read on that patient. Note: these checks are configured by each health system and may vary
+    based on their security policies.'
+- code: '4134'
+  severity: Information
+  description: The patient you are attempting to access is resctricted. You must Break-the-Glass to view
+    patient data.
+  example: 'The patient is a hospital employee so extra protection is in place such that only those who
+    have provided a reason to access the chart can access all data. Note: these checks are configured
+    by each health system and may vary based on their security policies.'
+- code: '4135'
+  severity: Fatal
+  description: Please try again tomorrow
+  example: Maximum document queries has been reached for the day.
+- code: '40000'
+  severity: Fatal
+  description: Incoming table mapping error
+  example: When calling the FamilyMemberHistory API, a relationship type is not mapped.
+- code: '59100'
+  severity: Information
+  description: Content invalid against the specification or a profile.
+  example: /api/FHIR/MedicationStatement?patient=el5.bHVk3kkdaA-5ezLMCHQ3&stat=1 where "stat" is an unknown
+    parameter.
+- code: '59101'
+  severity: Warning
+  description: Content invalid against the specification or a profile.
+  example: /api/FHIR/R4/MedicationRequest?patient=eHtj-Tb68iBKA8ZsY8Ioq7w3&category=homemeds where "homemeds"
+    is an unknown category value.
+- code: '59102'
+  severity: Fatal
+  description: Content invalid against the specification or a profile.
+  example: /api/FHIR/R4/MedicationRequest?patient=fakepatientid where the patient ID is invalid.
+- code: '59105'
+  severity: Fatal
+  description: A structural issue in the content.
+  example: Invalid json syntax.
+- code: '59108'
+  severity: Fatal
+  description: Required {element name} missing
+  example: /api/FHIR/STU3/Observation?patient=eTtVpZg2-.J.yFIP1qJbK4A3 where either the category or code
+    parameter must be specified
+- code: '59109'
+  severity: Information
+  description: 'Optional {element name} invalid: {element value}'
+  example: /api/FHIR/STU3/Encounter?patient=e63wRTbPfr1p8UW81d8Seiw3&class=math where the optional class
+    parameter is not a valid category option
+- code: '59111'
+  severity: Fatal
+  description: 'Required {element name} invalid: {element value}'
+  example: /api/FHIR/R4/Observation?patient=e63wRTbPfr1p8UW81d8Seiw3&category=labresults where the required
+    category parameter is not a valid category option
+- code: '59133'
+  severity: Information
+  description: Processing issues.
+  example: This error is logged when fewer data elements than required are included in the request or
+    when the search exceeds 100 results.
+- code: '59141'
+  severity: Fatal
+  description: An attempt was made to create a duplicate record.
+  example: AllergyIntolerance.Create was used to add an allergy to bees, but an allergy to bees already
+    exists in the patient's chart.
+- code: '59144'
+  severity: Fatal
+  description: The reference provided was not found.
+  example: /api/FHIR/STU3/Binary/eKqBNFDq6lyQ5SoH5lVu3oNUw1qX1ux2nVAxvjy9qQ9GqOvhmga08hSScb7nvH9ismBvLErBhIFIjKWeEpwa6kiO6w1ZAm5wt.LozW5CSo3s3
+    when this ID is not found.
+- code: '59159'
+  severity: Fatal
+  description: The content/operation failed to pass a business rule, and so could not proceed.
+  example: 'A request missing a required parameter (such as the patient): Condition?category=diagnosis'
+- code: '59177'
+  severity: Fatal
+  description: An unexpected internal error has occurred.
+  example: Failed to file the LDA.
+- code: '59187'
+  severity: Fatal
+  description: Failed to find any patient-entered flowsheets.
+  example: When using FHIR Observation.Create in a patient-facing app, the patient does not have any Patient-Entered
+    Flowsheets assigned.
+- code: '59188'
+  severity: Fatal
+  description: Failed to find one vital-signs flowsheet row by given codes.
+  example: When using FHIR Observation.Create, no single flowsheet row can be found by the codes provided
+    in the request body. It can also be logged if the flowsheet row found is not mapped to the vital sign
+    LOINC code (8716-3).
+- code: '59189'
+  severity: Fatal
+  description: Failed to file the reading.
+  example: When using FHIR Observation.Create, the API fails to file any readings to the patient's chart.
+related:
+  problem_types: errors/epic-systems-problem-types.yml
+  conventions: conventions/epic-systems-conventions.yml
+  rate_limits: rate-limits/epic-systems-rate-limits.yml

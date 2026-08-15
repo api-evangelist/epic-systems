@@ -1,11 +1,10 @@
-generated: '2026-07-24'
+generated: '2026-08-14'
 method: searched
-source: fhir/*.json CapabilityStatements + Epic on FHIR documentation
-note: >-
-  Epic ships a versioned, standards-based FHIR surface. Versioning is expressed
-  two ways - the FHIR spec version (selected by URL path) and Epic's named
-  software release cadence. Legacy FHIR versions remain served but new
-  development targets R4.
+source: fhir/*.json CapabilityStatements + Epic on FHIR documentation (https://fhir.epic.com/Documentation?docId=oauth2,
+  ?docId=searchparameters) + https://open.epic.com/Endpoints/{R4,STU3,DSTU2}
+note: Epic ships a versioned, standards-based FHIR surface. Versioning is expressed two ways - the FHIR
+  spec version (selected by URL path) and Epic's named software release cadence. Legacy FHIR versions
+  remain served but new development targets R4.
 versioning:
   scheme: uri-path-fhir-version
   current: R4 (fhirVersion 4.0.1)
@@ -14,30 +13,55 @@ versioning:
     fhirVersion: 4.0.1
     status: current
     base: https://fhir.epic.com/interconnect-fhir-oauth/api/FHIR/R4
+    published_production_endpoints: 479
   - version: STU3
     fhirVersion: 3.0.1
     status: legacy-supported
     base: https://fhir.epic.com/interconnect-fhir-oauth/api/FHIR/STU3
+    published_production_endpoints: 0
+    note: open.epic.com/Endpoints/STU3 serves a valid but EMPTY Endpoint Bundle - no customer publishes
+      an STU3 production endpoint, even though the sandbox CapabilityStatement is live. Effectively end-of-life
+      in the field.
   - version: DSTU2
     fhirVersion: 1.0.2
     status: legacy-supported
     base: https://fhir.epic.com/interconnect-fhir-oauth/api/FHIR/DSTU2
+    published_production_endpoints: 490
+    note: Still the LARGEST published production surface (490 endpoints vs R4's 479), despite being the
+      legacy trial-use version.
   software_release:
     scheme: named-release
-    current: 'May 2026'
-    release_date: '2026-05-11'
-    detail: Epic delivers quarterly-named software releases; FHIR resource/API additions ship with each release and are announced through Epic on FHIR API change notifications.
+    current: May 2026
+    detail: Epic ships four named releases a year (February / May / August / November). API behaviour
+      changes are announced in-place in the relevant documentation topic as 'Starting in the <Month Year>
+      version of Epic...'. Because each health system upgrades on its own schedule, a change takes effect
+      PER CUSTOMER at upgrade rather than on a date. Structured recent entries are captured in changelog/epic-systems-changelog.yml.
+    next_announced: August 2026
+    note: Epic's documentation describes August 2026 behaviour in the future tense, so May 2026 is recorded
+      as current and August 2026 as announced. Epic does not publish release dates on the open developer
+      site, so no release_date is asserted.
   docs: https://fhir.epic.com/Documentation?docId=fhir
+  endpoint_directory: fhir/epic-systems-endpoint-catalog.yml
 deprecation:
-  policy: >-
-    DSTU2 and STU3 are earlier FHIR trial-use versions retained for existing
-    integrations; new apps are directed to R4 / US Core. Epic communicates API
-    and resource changes through its Epic on FHIR change notifications rather
-    than a single public deprecation-policy page.
-  sunset_header: unknown
+  policy: Epic publishes no single deprecation-policy page and no Sunset/Deprecation header support. What
+    it does publish is a per-change, multi-release retirement schedule stated in the affected documentation
+    topic, plus an App Developer Guidelines commitment to 'backward compatibility for APIs or interfaces
+    unless deprecation is clearly communicated in advance'. DSTU2 and STU3 remain served for existing
+    integrations; new development is directed to R4 / US Core.
+  sunset_header: false
+  deprecation_header: false
+  policy_url: https://fhir.epic.com/Documentation?docId=developerguidelines
+  worked_example:
+    name: Static public keys for backend OAuth 2.0
+    detail: Announced and retired across four named releases (Aug 2025 -> Aug 2026). This is the clearest
+      published deprecation Epic runs and is the model for how API change is communicated.
+    detail_ref: changelog/epic-systems-changelog.yml
 sla:
-  detail: No public uptime SLA is published for the open sandbox; production availability is governed per connected health system.
+  detail: No public uptime SLA is published for the open sandbox; production availability is governed
+    per connected health system.
 status_page:
   public: false
-  detail: No public status page is published for the fhir.epic.com sandbox.
+  detail: No public status page. status.epic.com does not resolve. Sandbox availability is unreported
+    and production availability is governed per connected health system.
 deprecated_operations: []
+changelog: changelog/epic-systems-changelog.yml

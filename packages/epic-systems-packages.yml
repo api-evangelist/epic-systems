@@ -1,0 +1,64 @@
+generated: '2026-08-14'
+method: searched
+source: >-
+  https://fhir.epic.com/Documentation?docId=oauth2 (Epic on FHIR developer
+  documentation), plus registry searches of npm, PyPI, RubyGems, NuGet, Maven
+  Central, crates.io and pkg.go.dev for first-party Epic Systems client
+  libraries.
+note: >-
+  Epic Systems publishes NO first-party client SDK for its FHIR APIs on any
+  public package registry. This is a deliberate, documented posture rather than
+  an oversight: Epic's own developer documentation lists third-party OAuth 2.0
+  and FHIR libraries under a heading that explicitly disclaims them - "While it
+  is not an exhaustive list, nor maintained or affiliated with Epic, the
+  following resources might be helpful" - and points developers at the generic
+  open-source SMART on FHIR ecosystem (the smart-on-fhir `fhirclient` library
+  for single-page apps, AppAuth for native apps) instead of an Epic-branded
+  package. Because Epic implements HL7 FHIR R4/STU3/DSTU2 and SMART on FHIR as
+  published standards, any conformant FHIR client works against the Epic
+  endpoints; the integration surface is the standard, not a vendor SDK. Registry
+  searches surfaced only community and vendor packages (ngx-epic-fhir-client,
+  n8n-nodes-epic-fhir-r4, medplum, fhir-kit-client, smart-on-fhir/client-js) -
+  none published by Epic Systems Corporation. Recorded as an honest zero.
+packages: []
+package_count: 0
+third_party_ecosystem:
+  note: >-
+    Recorded for context only. These are NOT Epic packages and carry no
+    official: true. Two of the three are named in Epic's own documentation as
+    unaffiliated references.
+  referenced_by_epic_docs:
+  - name: fhirclient
+    registry: npm
+    url: https://www.npmjs.com/package/fhirclient
+    repository: https://github.com/smart-on-fhir/client-js
+    publisher: SMART Health IT (Boston Children's Hospital)
+    official: false
+    context: Named in Epic's docs as a client-side OAuth 2.0 / SMART library option for single-page apps.
+  - name: AppAuth
+    registry: multiple
+    url: https://appauth.io/
+    publisher: OpenID Foundation
+    official: false
+    context: Named in Epic's docs as a native-app OAuth 2.0 library option.
+  - name: health-cards-validation-SDK
+    registry: github
+    url: https://github.com/microsoft/health-cards-validation-SDK
+    publisher: Microsoft
+    official: false
+    context: Named in Epic's SMART Health Cards documentation as an unaffiliated validation SDK.
+registries_checked:
+- registry: npm
+  result: no first-party Epic Systems package
+- registry: pypi
+  result: no first-party Epic Systems package
+- registry: rubygems
+  result: no first-party Epic Systems package
+- registry: nuget
+  result: no first-party Epic Systems package
+- registry: maven-central
+  result: no first-party Epic Systems package
+- registry: crates.io
+  result: no first-party Epic Systems package
+- registry: pkg.go.dev
+  result: no first-party Epic Systems package

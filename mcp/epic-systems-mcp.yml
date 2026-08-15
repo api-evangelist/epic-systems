@@ -1,0 +1,99 @@
+generated: '2026-08-14'
+method: derived
+status: candidate
+source: fhir/epic-fhir-r4-capabilitystatement.json
+note: >-
+  Epic Systems publishes NO Model Context Protocol server. Searched Epic's own
+  developer surface (fhir.epic.com, open.epic.com, vendorservices.epic.com), the
+  npm registry, and public MCP directories; probed https://fhir.epic.com/mcp and
+  https://mcp.epic.com/. fhir.epic.com answers an identical 56,634-byte HTML
+  shell for /mcp, /api-docs and /.well-known/oauth-protected-resource - a
+  catch-all soft-200, not a server - and mcp.epic.com does not resolve. Community
+  and third-party "Epic FHIR MCP" projects exist on npm and GitHub but none is
+  published by Epic Systems Corporation, so none is recorded as Epic's.
+  The tools[] below are a DERIVED CANDIDATE surface, computed from the resource
+  types and interactions Epic actually advertises in its live R4 sandbox
+  CapabilityStatement. They describe what an MCP server over Epic's FHIR API
+  would expose; they are not a server anyone can call today. Because no server
+  exists, this artifact deliberately carries NO `MCPServer` pointer in apis.yml -
+  emitting one would credit Epic with an agent surface it does not ship.
+deployment:
+  mode: none
+  endpoint: null
+  install: null
+  package: null
+  auth: oauth
+  verified: searched
+  detail: >-
+    No remote endpoint and no stdio package from the vendor. Recorded auth as
+    oauth because any real server over this API would have to carry SMART on
+    FHIR / OAuth 2.0 through to the underlying endpoint - Epic's FHIR surface
+    has no anonymous mode.
+probes:
+- {url: 'https://fhir.epic.com/mcp', http_status: 200, result: soft-200 HTML catch-all, verdict: miss}
+- {url: 'https://mcp.epic.com/', http_status: 0, result: DNS/connection failure, verdict: miss}
+- {url: 'https://fhir.epic.com/.well-known/oauth-protected-resource', http_status: 200, result: soft-200 HTML catch-all (same 56634-byte body), verdict: miss}
+server: null
+grounding:
+  spec: fhir/epic-fhir-r4-capabilitystatement.json
+  fhir_version: 4.0.1
+  base: https://fhir.epic.com/interconnect-fhir-oauth/api/FHIR/R4
+  resource_types: 59
+  naming: >-
+    Tool names follow Epic's own published API naming convention for FHIR
+    interactions - Patient.Read, Patient.Search, Observation.Create - which Epic
+    uses verbatim throughout its documentation and app-registration scopes.
+  authorization: >-
+    Every candidate tool inherits the SMART scope of its backing interaction; a
+    server would need per-tool scope mapping (see scopes/epic-systems-scopes.yml)
+    and must honour patient-context filtering, which changes returned data
+    without changing the request.
+tool_count: 12
+tools:
+- name: Patient.Search
+  description: Search for patients by demographics or identifier. Capped at 100 results (Epic error 4127).
+  source_operation: fhir/epic-fhir-r4-capabilitystatement.json#Patient.search-type
+- name: Patient.Read
+  description: Read a single Patient resource by FHIR ID.
+  source_operation: fhir/epic-fhir-r4-capabilitystatement.json#Patient.read
+- name: Patient.Match
+  description: Probabilistic patient matching via the $match operation.
+  source_operation: fhir/epic-fhir-r4-capabilitystatement.json#Patient.$match
+- name: Patient.Summary
+  description: Retrieve a patient summary via the $summary operation.
+  source_operation: fhir/epic-fhir-r4-capabilitystatement.json#Patient.$summary
+- name: Observation.Search
+  description: Search observations (labs, vitals, smoking history) for a patient; category is a required search parameter.
+  source_operation: fhir/epic-fhir-r4-capabilitystatement.json#Observation.search-type
+- name: Observation.Create
+  description: File a patient-entered or device reading to a vital-signs flowsheet row. Fails with 59187/59188/59189 when no mapped flowsheet exists.
+  source_operation: fhir/epic-fhir-r4-capabilitystatement.json#Observation.create
+- name: Condition.Search
+  description: Search a patient's problem list, encounter diagnoses and health concerns.
+  source_operation: fhir/epic-fhir-r4-capabilitystatement.json#Condition.search-type
+- name: MedicationRequest.Search
+  description: Search a patient's medication orders and prescriptions.
+  source_operation: fhir/epic-fhir-r4-capabilitystatement.json#MedicationRequest.search-type
+- name: AllergyIntolerance.Search
+  description: Search a patient's documented allergies and intolerances.
+  source_operation: fhir/epic-fhir-r4-capabilitystatement.json#AllergyIntolerance.search-type
+- name: DocumentReference.Search
+  description: Search clinical documents and notes; subject to a daily document-query ceiling (Epic error 4135).
+  source_operation: fhir/epic-fhir-r4-capabilitystatement.json#DocumentReference.search-type
+- name: Appointment.Search
+  description: Search a patient's scheduled and upcoming appointments.
+  source_operation: fhir/epic-fhir-r4-capabilitystatement.json#Appointment.search-type
+- name: Group.Export
+  description: Kick off a FHIR Bulk Data ($export) job for a population Group; requires client-credentials with private_key_jwt.
+  source_operation: fhir/epic-fhir-r4-capabilitystatement.json#Group.$group-export
+agent_cautions:
+- Data returned varies by patient-facing vs provider-facing context and by each community member's filtering configuration - identical requests can legitimately return different data at two customers.
+- Break-the-Glass restrictions (errors 4130, 4131, 4134) are a real authorization outcome on sensitive charts, not a failure to retry.
+- Writes are narrow - of 59 R4 resource types, 59 advertise read and 56 search-type, but only 11 advertise create and 7 update. This API is overwhelmingly read-only.
+- There is no single production base URL; a server must resolve the customer's endpoint from fhir/epic-systems-endpoint-catalog.yml.
+related:
+  capability_statement: fhir/epic-fhir-r4-capabilitystatement.json
+  authentication: authentication/epic-systems-authentication.yml
+  scopes: scopes/epic-systems-scopes.yml
+  errors: errors/epic-systems-error-codes.yml
+  endpoint_catalog: fhir/epic-systems-endpoint-catalog.yml

@@ -1,11 +1,10 @@
-generated: '2026-07-24'
-method: derived
-source: fhir/epic-fhir-r4-capabilitystatement.json + HL7 FHIR R4 RESTful conventions + Epic on FHIR documentation
-note: >-
-  Cross-cutting request/response semantics for Epic's FHIR APIs. Epic implements
-  the HL7 FHIR R4 RESTful API, so these conventions follow the FHIR specification
-  as constrained by the harvested sandbox CapabilityStatement. Nothing here is
-  Epic-proprietary invention; it is the FHIR contract Epic advertises.
+generated: '2026-08-14'
+method: searched
+source: https://fhir.epic.com/Documentation?docId=searchparameters, https://fhir.epic.com/Specifications,
+  https://fhir.epic.com/Documentation?docId=oauth2, and fhir/epic-fhir-r4-capabilitystatement.json
+note: Cross-cutting request/response semantics for Epic's FHIR APIs. Epic implements the HL7 FHIR R4 RESTful
+  API, so these conventions follow the FHIR specification as constrained by the harvested sandbox CapabilityStatement.
+  Nothing here is Epic-proprietary invention; it is the FHIR contract Epic advertises.
 authentication:
   style: SMART on FHIR / OAuth 2.0 Bearer
   header: 'Authorization: Bearer <access_token>'
@@ -14,27 +13,25 @@ authentication:
 idempotency:
   supported: true
   mechanism: http-semantics
-  detail: >-
-    Epic implements FHIR RESTful interactions. read (GET) and search-type (GET)
-    are safe and idempotent. update (PUT to [base]/[type]/[id]) is idempotent per
-    FHIR/HTTP semantics and is advertised on 7 R4 resources - a client may safely
-    retry the same PUT. There is no separate idempotency-key header; instead FHIR
-    uses version-aware optimistic concurrency.
+  detail: Epic implements FHIR RESTful interactions. read (GET) and search-type (GET) are safe and idempotent.
+    update (PUT to [base]/[type]/[id]) is idempotent per FHIR/HTTP semantics and is advertised on 7 R4
+    resources - a client may safely retry the same PUT. There is no separate idempotency-key header; instead
+    FHIR uses version-aware optimistic concurrency.
   concurrency:
     etag: true
-    detail: Responses carry an ETag (resource versionId, W/"vid"); conditional writes use If-Match to prevent lost updates (412 on version conflict).
+    detail: Responses carry an ETag (resource versionId, W/"vid"); conditional writes use If-Match to
+      prevent lost updates (412 on version conflict).
   conditional_create:
     advertised: false
-    note: The sandbox R4 CapabilityStatement does not advertise conditionalCreate (If-None-Exist), so POST create is not guaranteed idempotent in this deployment.
+    note: The sandbox R4 CapabilityStatement does not advertise conditionalCreate (If-None-Exist), so
+      POST create is not guaranteed idempotent in this deployment.
 pagination:
   style: fhir-bundle-links
-  detail: >-
-    search-type interactions return a searchset Bundle. Page size is requested
-    with _count; navigation follows the Bundle.link entries with relation "next"
-    (and "self"/"previous"/"first"/"last" where present) rather than numeric
-    offsets. Total may be provided in Bundle.total.
+  detail: search-type interactions return a searchset Bundle. Page size is requested with _count; navigation
+    follows the Bundle.link entries with relation "next" (and "self"/"previous"/"first"/"last" where present)
+    rather than numeric offsets. Total may be provided in Bundle.total.
   params:
-  - _count      # results per page
+  - _count
   request_response_fields:
   - Bundle.link[relation=next].url
   - Bundle.total
@@ -47,7 +44,31 @@ search:
   - _count
   - _include
   - _revInclude
-  detail: Resource-specific search parameters are declared per resource in the CapabilityStatement; _include/_revInclude supported (e.g. Provenance:target).
+  detail: Resource-specific search parameters are declared per resource in the CapabilityStatement; _include/_revInclude
+    supported (e.g. Provenance:target).
+  post_search:
+    supported: true
+    form: 'POST [base]/[resource]/_search with Content-Type: application/x-www-form-urlencoded'
+    detail: 'Supported for all FHIR versions; intended for queries whose query string would be too long.
+      BREAKING CHANGE: previously, if both a query string and a POST body were supplied, the POST BODY
+      was ignored. Starting in the February 2026 version of Epic, query string parameters other than _format
+      are ignored by the _search endpoint instead. A client sending both silently changes behaviour on
+      customer upgrade.'
+    source: https://fhir.epic.com/Documentation?docId=searchparameters
+  date_prefixes:
+    supported:
+    - eq
+    - lt
+    - le
+    - gt
+    - ge
+    default: eq when no prefix is given
+    detail: Epic supports a subset of the HL7-defined date/datetime search prefixes.
+  post_filtering:
+    detail: 'Some parameters are post-filters rather than native search parameters: the Epic FHIR server
+      first retrieves everything matching the native parameters, THEN filters that set down. Native vs
+      post-filtered parameters are distinguished per-resource on the API specification pages. This changes
+      result-count and performance reasoning for an agent.'
 content_negotiation:
   formats:
   - application/fhir+json
@@ -55,18 +76,41 @@ content_negotiation:
   detail: CapabilityStatement.format = [xml, json]; select with Accept header or _format query param.
 versioning:
   api_versioning: uri-path-fhir-version
-  detail: >-
-    FHIR version is selected by URL path segment - .../api/FHIR/R4, .../api/FHIR/STU3,
-    .../api/FHIR/DSTU2. Resource instance versions are addressable via history
-    (_history) and referenced by ETag/versionId. Epic software cadence is named
-    releases (e.g. "May 2026").
+  detail: FHIR version is selected by URL path segment - .../api/FHIR/R4, .../api/FHIR/STU3, .../api/FHIR/DSTU2.
+    Resource instance versions are addressable via history (_history) and referenced by ETag/versionId.
+    Epic software cadence is named releases (e.g. "May 2026").
   detail_ref: lifecycle/epic-systems-lifecycle.yml
 request_tracing:
   detail: Standard HTTP; no documented custom request-id echo header in the sandbox CapabilityStatement.
 error_envelope:
   shape: fhir-operationoutcome
   media_type: application/fhir+json
-  detail: Errors are returned as a FHIR OperationOutcome resource with issue[] entries (severity, code, diagnostics), alongside the HTTP status.
+  detail: Errors are returned as a FHIR OperationOutcome resource with issue[] entries (severity, code,
+    diagnostics), alongside the HTTP status.
   detail_ref: errors/epic-systems-problem-types.yml
 rate_limiting:
-  detail: Epic does not publish a fixed public rate-limit table for the sandbox; production throughput is governed per connected health system and app registration.
+  detail: No rate-limit headers, no documented 429, and no published per-second rate. Throughput is set
+    per community member; the App Developer Guidelines put the throttling obligation on the integrator
+    (<=1% of the customer's operational database at peak, <=5% off-peak). Exhaustion surfaces as an Epic
+    error code inside OperationOutcome.
+  detail_ref: rate-limits/epic-systems-rate-limits.yml
+docs:
+- https://fhir.epic.com/Documentation?docId=searchparameters
+- https://fhir.epic.com/Specifications
+result_caps:
+  patient_search: 100
+  detail: Patient.Search exceeding 100 results returns error 4127 and general searches exceeding 100 results
+    return 59133. These are caps, not pages - narrow the query.
+  detail_ref: rate-limits/epic-systems-rate-limits.yml
+authorization_outcomes:
+  break_the_glass:
+    codes:
+    - 4130
+    - 4131
+    - 4134
+    detail: 'EHR-specific authorization outcome with no analogue in a normal API: access to a sensitive
+      or restricted chart (e.g. a psychiatric encounter, or an employee-patient) requires a human to ''break
+      the glass'' and record a reason. Configured per health system. This is a policy denial, never a
+      transient error - do not retry and do not route around it.'
+  detail_ref: errors/epic-systems-error-codes.yml
+error_codes_ref: errors/epic-systems-error-codes.yml

@@ -1,16 +1,23 @@
-generated: '2026-07-24'
-method: derived
-source: fhir/epic-fhir-r4-capabilitystatement.json, fhir/epic-fhir-r4-smart-configuration.json, well-known/epic-systems-openid-configuration.json, Epic on FHIR documentation
-note: >-
-  Standards conformance derived from the live sandbox CapabilityStatement /
-  Conformance documents and the SMART on FHIR / OIDC discovery documents
-  harvested verbatim. Epic is a producer of standards-based healthcare
-  interoperability surfaces; conformance here means the API implements the named
-  specification, evidenced in machine-readable metadata.
+generated: '2026-08-14'
+method: searched
+source: fhir/epic-fhir-r4-capabilitystatement.json, fhir/epic-fhir-r4-smart-configuration.json, well-known/epic-systems-openid-configuration.json,
+  https://fhir.epic.com/Specifications, https://fhir.epic.com/Documentation?docId=cms_prior_auth_playbook,
+  https://fhir.epic.com/Documentation?docId=developerguidelines, https://open.epic.com/Endpoints/R4
+note: 'Standards conformance derived from the live sandbox CapabilityStatement / Conformance documents
+  and the SMART on FHIR / OIDC discovery documents harvested verbatim. Epic is a producer of standards-based
+  healthcare interoperability surfaces; conformance here means the API implements the named specification,
+  evidenced in machine-readable metadata.
+
+
+  Updated 2026-08-14: extended beyond spec-level conformance to the REGULATORY layer that actually governs
+  this API - ONC Cures Act / USCDI, CMS-9115 Patient Access, CMS-0057 prior authorization, Da Vinci and
+  TEFCA - all of which Epic documents itself, plus honest negatives for the agent-era surfaces (A2A agent
+  card, MCP, llms.txt, RFC 9727 api-catalog) that were probed and missed.'
 standards:
 - id: hl7-fhir-r4
   conforms: true
-  evidence: R4 CapabilityStatement fhirVersion 4.0.1; 59 resource types with read/search-type/create/update interactions.
+  evidence: R4 CapabilityStatement fhirVersion 4.0.1; 59 resource types with read/search-type/create/update
+    interactions.
 - id: hl7-fhir-stu3
   conforms: true
   evidence: STU3 CapabilityStatement fhirVersion 3.0.1; 35 resource types.
@@ -22,31 +29,100 @@ standards:
   evidence: R4 CapabilityStatement instantiates http://hl7.org/fhir/us/core/CapabilityStatement/us-core-server|6.1.0.
 - id: smart-on-fhir
   conforms: true
-  evidence: security.service declares SMART-on-FHIR; smart-configuration advertises launch-ehr, launch-standalone, client-confidential-asymmetric, permission-v1, permission-v2.
+  evidence: security.service declares SMART-on-FHIR; smart-configuration advertises launch-ehr, launch-standalone,
+    client-confidential-asymmetric, permission-v1, permission-v2.
 - id: smart-app-launch
   conforms: true
   evidence: EHR launch and standalone launch capabilities advertised; context-ehr-patient / context-standalone-patient.
 - id: smart-backend-services
   conforms: true
-  evidence: client_credentials grant + private_key_jwt (asymmetric) client auth; system-level scopes; backs Bulk Data $export.
+  evidence: client_credentials grant + private_key_jwt (asymmetric) client auth; system-level scopes;
+    backs Bulk Data $export.
 - id: oauth2
   conforms: true
-  evidence: security.service declares OAuth; authorize/token endpoints under .../oauth2; grants authorization_code, refresh_token, client_credentials, jwt-bearer, token-exchange.
+  evidence: security.service declares OAuth; authorize/token endpoints under .../oauth2; grants authorization_code,
+    refresh_token, client_credentials, jwt-bearer, token-exchange.
 - id: oauth2-pkce
   conforms: true
   evidence: smart-configuration code_challenge_methods_supported = [S256].
 - id: openid-connect
   conforms: true
-  evidence: openid-configuration served; sso-openid-connect capability; id_token_signing_alg_values_supported = [RS256]; scopes include openid, profile, fhirUser.
+  evidence: openid-configuration served; sso-openid-connect capability; id_token_signing_alg_values_supported
+    = [RS256]; scopes include openid, profile, fhirUser.
 - id: hl7-fhir-bulk-data
   conforms: true
-  evidence: R4 CapabilityStatement instantiates http://hl7.org/fhir/uv/bulkdata/CapabilityStatement/bulk-data; $export documented on Epic on FHIR (bulkdataaccesstutorial).
+  evidence: R4 CapabilityStatement instantiates http://hl7.org/fhir/uv/bulkdata/CapabilityStatement/bulk-data;
+    $export documented on Epic on FHIR (bulkdataaccesstutorial).
 - id: cds-hooks
   conforms: true
-  evidence: Epic on FHIR documents CDS Hooks (cdshookstutorial); external CDS services return cards / SMART app launch links at EHR workflow hook points.
+  evidence: Epic on FHIR documents CDS Hooks (cdshookstutorial); external CDS services return cards /
+    SMART app launch links at EHR workflow hook points.
 - id: rfc9457-problem-details
   conforms: false
   evidence: Errors are returned as FHIR OperationOutcome resources (application/fhir+json), not application/problem+json.
 - id: rfc9116-security-txt
   conforms: true
   evidence: well-known/epic-systems-security.txt (RFC 9116, PGP-signed) served at www.epic.com.
+- id: us-core-6.1.0-endpoint-publication
+  conforms: true
+  evidence: Epic publishes machine-readable HL7 FHIR Endpoint Bundles for every customer FHIR base URL
+    at open.epic.com/Endpoints/R4 (479 endpoints) and /DSTU2 (490); fetched anonymously 2026-08-14 and
+    saved to fhir/epic-fhir-endpoints-r4.json. Endpoint publication is the ONC Cures Act service-base-URL
+    requirement.
+- id: onc-cures-act-information-blocking
+  conforms: true
+  evidence: USCDI v1 and USCDI v3 FHIR API sets are documented and drive Epic's automatic client-ID distribution
+    to community members; apps declaring USCDI v1/v3 and meeting the stated conditions auto-download to
+    customer environments.
+- id: uscdi-v1
+  conforms: true
+  evidence: Auto-download eligibility for patient-facing read-only apps using only USCDI v1 FHIR APIs,
+    in Epic May 2024 and earlier.
+- id: uscdi-v3
+  conforms: true
+  evidence: Auto-download eligibility for patient-facing read-only apps using only USCDI v3 FHIR APIs,
+    in Epic August 2024 and later.
+- id: cms-9115-patient-access-api
+  conforms: true
+  evidence: CMS Payer app auto-distribution path for apps using ExplanationOfBenefit and/or QuestionnaireResponse.Read
+    (Prior Auth); ExplanationOfBenefit and Coverage advertised in the R4 CapabilityStatement.
+- id: cms-0057-prior-authorization
+  conforms: true
+  evidence: Prior Authorization FHIR APIs released in the February 2026 version of Epic to meet the CMS
+    0057 Final Rule; registered under a Backend Systems app context with the 'CMS Prior Auth' use case.
+- id: davinci-crd-dtr-pas-2.1
+  conforms: partial
+  evidence: Epic states the Prior Auth APIs were 'constructed around the Da Vinci 2.1 FHIR IG, though
+    it does not follow it exactly'. Surface includes Coverage Requirements Discovery, Questionnaire.$questionnaire-package,
+    Questionnaire.$next-question, ValueSet.$expand (DTR Payer Guidelines), Questionnaire.$log-questionnaire-errors,
+    Claim.$submit (Prior Auth), Claim.$inquire (Prior Auth), $submit-attachment (Prior Auth). Recorded
+    as partial on Epic's own qualification.
+- id: tefca
+  conforms: true
+  evidence: TEFCA IAS-via-FHIR apps are a documented client-ID auto-distribution path, requiring registration
+    and testing with Epic Nexus and an active entry in the Production RCE (TEFCA) Directory.
+- id: smart-health-cards
+  conforms: true
+  evidence: Epic issues SMART Health Cards signed with ECDSA P-256 SHA-256; JWKS kid matches the JWS header
+    kid; verification guidance references RFC 7515 Appendix A.3.
+- id: private-key-jwt-rfc7523
+  conforms: true
+  evidence: Backend OAuth 2.0 clients authenticate with JWT assertions against a developer-hosted JWK
+    Set URL (JKU); static .pem public keys retired across the Aug 2025 - May 2026 Epic releases.
+- id: rfc9727-api-catalog
+  conforms: false
+  evidence: No /.well-known/api-catalog is served (404 on open.epic.com and www.epic.com; 302 on fhir.epic.com).
+    The equivalent directory exists but is published at open.epic.com/Endpoints/<version> instead of the
+    well-known path.
+- id: a2a-agent-card
+  conforms: false
+  evidence: /.well-known/agent-card.json and /.well-known/agent.json return 404 on www.epic.com, fhir.epic.com
+    and open.epic.com (probed 2026-08-14). No A2A agent card is published.
+- id: mcp
+  conforms: false
+  evidence: No Model Context Protocol server is published by Epic. fhir.epic.com/mcp returns an identical
+    56,634-byte HTML catch-all (soft-200); mcp.epic.com does not resolve. See mcp/epic-systems-mcp.yml.
+- id: llms-txt
+  conforms: false
+  evidence: /llms.txt returns 404 on www.epic.com, fhir.epic.com and open.epic.com (probed 2026-08-14).
+standard_count: 28

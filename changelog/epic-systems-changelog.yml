@@ -1,0 +1,121 @@
+generated: '2026-08-14'
+method: searched
+source: https://fhir.epic.com/Documentation?docId=oauth2
+docs:
+- https://fhir.epic.com/Documentation?docId=oauth2
+- https://fhir.epic.com/Documentation?docId=searchparameters
+- https://fhir.epic.com/Specifications
+note: >-
+  Epic does not publish a conventional dated API changelog feed - there is no
+  /changelog page, no release-notes RSS, and no "What's New" list on Epic on
+  FHIR. Change is communicated a different way, and it is worth stating plainly
+  because it is the shape of the whole EHR market: Epic versions its SOFTWARE on
+  a named quarterly release train (February / May / August / November of a given
+  year), and API behaviour changes are announced INSIDE the relevant
+  documentation topic as "Starting in the <Month Year> version of Epic ...".
+  Because each health system upgrades on its own schedule, a change does not
+  take effect on a date - it takes effect per customer, whenever that customer
+  reaches the named version. The entries below are the dated, forward-looking
+  API changes Epic states in its current documentation, transcribed from the
+  documentation topics named in `source`. This is a recent-window capture, not a
+  full history.
+scheme:
+  style: named-quarterly-release
+  releases_per_year: 4
+  release_names: [February, May, August, November]
+  current: 'May 2026'
+  current_release_date: '2026-05-11'
+  detail: >-
+    Version identity is the named Epic release (e.g. "August 2026"), not a
+    semantic version and not an API version. The FHIR API version is selected
+    separately by URL path (R4 / STU3 / DSTU2) and does not move with the
+    release train.
+  effective_model: per-customer-upgrade
+distribution:
+  detail: >-
+    Announced in-place in the documentation topic affected. There is no feed to
+    subscribe to; Epic on FHIR account holders receive API change notifications
+    through the developer portal.
+  feed: null
+  status_page: null
+entry_count: 6
+entries:
+- version: 'August 2026'
+  date: null
+  type: addition
+  breaking: false
+  area: authentication
+  summary: Customers may configure local JWKs from a developer-provided static public key in .pem format, as an alternative to a JWK Set URL.
+  detail: >-
+    Reintroduces a static-key path after static keys were removed, but as a
+    customer-side local configuration rather than an app-level upload. Epic
+    still recommends supporting a JKU, because static keys require the developer
+    to communicate rotated keys directly to every customer.
+  source: https://fhir.epic.com/Documentation?docId=oauth2
+- version: 'May 2026'
+  date: '2026-05-11'
+  type: breaking
+  breaking: true
+  area: authentication
+  summary: Static keys are no longer supported in customer environments for backend OAuth; customers must manually configure the app's JKU (the "local JKU").
+  detail: >-
+    All customers require either a JWK Set URL or a .pem file once they upgrade
+    to the May 2026 version. Backend (client-credentials) apps relying on an
+    app-level static key uploaded to Epic will stop authenticating in upgraded
+    customer environments.
+  source: https://fhir.epic.com/Documentation?docId=oauth2
+- version: 'February 2026'
+  date: null
+  type: breaking
+  breaking: true
+  area: search
+  summary: Query-string parameters other than _format are ignored by the POST _search endpoint.
+  detail: >-
+    FHIR search may be issued as POST [base]/[resource]/_search with an
+    application/x-www-form-urlencoded body. Previously, if both a query string
+    and a POST body were supplied the POST body was ignored; from February 2026
+    the query string is ignored instead (except _format). Any client mixing both
+    changes behaviour silently.
+  source: https://fhir.epic.com/Documentation?docId=searchparameters
+- version: 'February 2026'
+  date: null
+  type: breaking
+  breaking: true
+  area: authentication
+  summary: Static keys no longer supported in the sandbox for backend OAuth; Vendor Services and Epic on FHIR stop accepting static-key uploads for new apps or new customer download requests.
+  detail: Both sites continue to support rotating keys for existing live customers.
+  source: https://fhir.epic.com/Documentation?docId=oauth2
+- version: 'February 2026'
+  date: null
+  type: addition
+  breaking: false
+  area: api-surface
+  summary: Prior Authorization FHIR APIs released, meeting the CMS 0057-F Interoperability and Prior Authorization Final Rule.
+  detail: >-
+    Constructed around the Da Vinci 2.1 implementation guide (CRD, DTR, PAS)
+    though Epic states it does not follow the IG exactly. Adds
+    Coverage Requirements Discovery, Questionnaire.$questionnaire-package,
+    Questionnaire.$next-question, ValueSet.$expand (DTR Payer Guidelines),
+    Questionnaire.$log-questionnaire-errors, Claim.$submit (Prior Auth),
+    Claim.$inquire (Prior Auth) and $submit-attachment (Prior Auth), all R4.
+    Registered under a "Backend Systems" app context with the "CMS Prior Auth"
+    use case.
+  source: https://fhir.epic.com/Documentation?docId=oauth2
+- version: 'August 2025'
+  date: null
+  type: deprecation
+  breaking: true
+  area: authentication
+  summary: Vendor Services and Epic on FHIR stop allowing new static key uploads for use in the sandbox.
+  detail: First step of the multi-release retirement of static public keys for backend OAuth 2.0 clients in favour of hosted JWK Set URLs.
+  source: https://fhir.epic.com/Documentation?docId=oauth2
+deprecation_track:
+  name: Static public keys for backend OAuth 2.0
+  replaced_by: JWK Set URL (JKU) hosted by the developer, or a customer-configured local .pem
+  timeline:
+  - {version: 'February 2025 and prior', state: 'JKU optional; each customer may opt to enforce it (off by default)'}
+  - {version: 'August 2025', state: 'no new static key uploads for sandbox use'}
+  - {version: 'February 2026', state: 'static keys unsupported in the sandbox; no static uploads for new apps or new customer downloads'}
+  - {version: 'May 2026', state: 'static keys unsupported in customer environments'}
+  - {version: 'August 2026', state: 'customers may configure local JWKs from developer-supplied .pem files'}
+  detail_ref: lifecycle/epic-systems-lifecycle.yml

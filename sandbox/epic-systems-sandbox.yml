@@ -1,0 +1,157 @@
+generated: '2026-08-14'
+method: searched
+source: https://fhir.epic.com/Documentation?docId=testpatients
+docs:
+- https://fhir.epic.com/Documentation?docId=testpatients
+- https://fhir.epic.com/Documentation?docId=fhirtutorial
+- https://fhir.epic.com/Developer/Index
+note: >-
+  Epic runs a free, publicly documented FHIR sandbox at
+  https://fhir.epic.com/interconnect-fhir-oauth/ and publishes its test
+  identities openly - test user logins, test patient FHIR IDs / MRNs / MyChart
+  credentials, and a Bulk Data test Group ID. Every value below is published
+  verbatim by Epic in its own developer documentation; none was invented or
+  inferred. The sandbox is exclusively secured with OAuth 2.0 (there is no
+  unauthenticated mode and no API-key mode), so there is no test-key vs live-key
+  prefix scheme of the kind payments APIs use. Separation between test and
+  production is by ENVIRONMENT and by CLIENT RECORD: an app registered on Epic
+  on FHIR gets a non-production client ID for the sandbox, and a separate
+  production client ID that must be downloaded by each connected health system
+  before it will authenticate.
+environments:
+  sandbox:
+    name: Epic on FHIR sandbox
+    base: https://fhir.epic.com/interconnect-fhir-oauth/
+    fhir_bases:
+    - https://fhir.epic.com/interconnect-fhir-oauth/api/FHIR/R4
+    - https://fhir.epic.com/interconnect-fhir-oauth/api/FHIR/STU3
+    - https://fhir.epic.com/interconnect-fhir-oauth/api/FHIR/DSTU2
+    self_serve: true
+    cost: free
+    auth: OAuth 2.0 only (SMART on FHIR)
+  production:
+    name: Connected Epic community member environment
+    base: per health system (see the published FHIR endpoint directory)
+    endpoint_directory: https://open.epic.com/MyApps/Endpoints
+    self_serve: false
+    gate: >-
+      Requires a separate production client ID plus the connected health
+      system's download/enablement of the app. Client records distribute to
+      customer environments on a rolling 12-hour cycle, so a successful
+      production authentication can lag enablement by up to 12 hours.
+credential_model:
+  style: oauth2-client-record
+  key_prefixes: none
+  detail: >-
+    No test/live key prefix. Apps hold a non-production client ID for the
+    sandbox and a distinct production client ID. Backend (client-credentials)
+    apps authenticate with private_key_jwt; Epic is retiring static .pem public
+    keys in favor of a hosted JWK Set URL (JKU) - see
+    changelog/epic-systems-changelog.yml for the dated schedule.
+test_users:
+  note: >-
+    Provider-facing standalone OAuth 2.0 test logins for the FHIR sandbox,
+    published by Epic.
+  users:
+  - name: FHIR, USER
+    login: FHIR
+    password: EpicFhir11!
+    description: User account without a linked provider record; will NOT have a PractitionerRole resource.
+  - name: FHIRTWO, USER
+    login: FHIRTWO
+    password: EpicFhir11!
+    description: User account with a linked provider record; WILL have a PractitionerRole resource.
+test_patients:
+  note: >-
+    Patient-facing standalone OAuth 2.0 test identities. Patients with MyChart
+    credentials can be used to authenticate a patient-context app. Epic states
+    this list is not comprehensive of all sandbox data; it highlights patients
+    carrying common resource types.
+  patients:
+  - name: Camila Lopez
+    fhir_id: erXuFYUfucBZaryVksYEcMg3
+    external_id: Z6129
+    mrn: '203713'
+    mychart_username: fhircamila
+    mychart_password: epicepic1
+    resources: [DiagnosticReport, Goal, Medication, MedicationOrder, MedicationRequest, MedicationStatement, 'Observation (Labs)', Patient, Procedure]
+  - name: Derrick Lin
+    fhir_id: eq081-VQEgP8drUUqCWzHfw3
+    external_id: Z6127
+    mrn: '203711'
+    mychart_username: fhirderrick
+    mychart_password: epicepic1
+    resources: [CarePlan, Condition, Goal, Medication, MedicationOrder, MedicationRequest, MedicationStatement, 'Observation (Smoking History)', Patient]
+  - name: Desiree Powell
+    fhir_id: eAB3mDIBBcyUKviyzrxsnAw3
+    external_id: Z6130
+    mrn: '203714'
+    mychart_username: fhirdesiree
+    mychart_password: epicepic1
+    resources: [Immunization, 'Observation (Vitals)', Patient]
+  - name: Elijah Davis
+    fhir_id: egqBHVfQlt4Bw3XGXoxVxHg3
+    external_id: Z6125
+    mrn: '203709'
+    mychart_username: null
+    mychart_password: null
+    resources: [AllergyIntolerance, Binary, Condition, DocumentReference, Medication, MedicationOrder, MedicationRequest, MedicationStatement, 'Observation (Smoking History)', Patient]
+  - name: Linda Ross
+    fhir_id: eIXesllypH3M9tAA5WdJftQ3
+    external_id: Z6128
+    mrn: '203712'
+    mychart_username: null
+    mychart_password: null
+    resources: [Condition, Medication, MedicationOrder, MedicationRequest, MedicationStatement, 'Observation (Vitals)', Patient]
+  - name: Olivia Roberts
+    fhir_id: eh2xYHuzl9nkSFVvV3osUHg3
+    external_id: Z6131
+    mrn: '203715'
+    mychart_username: null
+    mychart_password: null
+    resources: [Binary, Condition, Device, DocumentReference, Patient]
+  - name: Warren McGinnis
+    fhir_id: e0w0LEDCYtfckT6N.CkJKCw3
+    external_id: Z6126
+    mrn: '203710'
+    mychart_username: null
+    mychart_password: null
+    resources: [AllergyIntolerance, Binary, Condition, DiagnosticReport, DocumentReference, 'Observation (Labs)', 'Observation (Vitals)', Patient, Procedure]
+bulk_data_fixture:
+  group_fhir_id: e3iabhmS8rsueyz7vaimuiaSmfGvi.QwjVXJANlPOgR83
+  detail: >-
+    Test FHIR Group for exercising Bulk Data ($export) in the sandbox. It
+    contains the test patients listed above. Epic grants a client record access
+    to this Group automatically only if the registered app selects ALL FOUR bulk
+    APIs (Kick-off, Status Request, File Request, Delete Request) plus the
+    Search interaction of each resource to be exported.
+    Example scope set for demographics + immunizations: Bulk Data Kick-off,
+    Bulk Data Status Request, Bulk Data File Request, Bulk Data Delete Request,
+    Patient.Search (R4), Immunization.Search (R4).
+in_browser_console:
+  name: Try It
+  detail: >-
+    Every API specification page on https://fhir.epic.com/Specifications carries
+    a "Try It" form in the top right that executes preconfigured requests
+    against the sandbox and shows the response without writing code. Forms are
+    editable. Epic notes Try It uses a HARDCODED test app, and recommends moving
+    to an HTTP client (Epic names Bruno and Postman) for real testing; the "Raw
+    Request" from a Try It can be copied straight into that client.
+responsible_use:
+  note: Epic publishes explicit sandbox fair-use guidance; captured because it is the closest thing to a documented sandbox limit.
+  rules:
+  - Schedule recurring API calls for a limited window (~one week) and disable the schedule once validated.
+  - Do not loop infinitely across all sandbox records; exercise a specific subset of records.
+  detail: The sandbox carries many concurrent app connections; these practices protect other developers' testing.
+patient_context_caveat: >-
+  FHIR APIs can return DIFFERENT data in a patient-facing context than in a
+  provider-facing one - patient-invisible data is filtered, patient-entered but
+  unreconciled data may be withheld, patient-friendly medication names may be
+  substituted, and specific lab results may be excluded for state/local
+  regulatory reasons. Filtering is configurable per Epic community member, so
+  two customers can behave differently. Epic advises testing each API at each
+  community member site before go-live.
+related:
+  authentication: authentication/epic-systems-authentication.yml
+  scopes: scopes/epic-systems-scopes.yml
+  errors: errors/epic-systems-error-codes.yml

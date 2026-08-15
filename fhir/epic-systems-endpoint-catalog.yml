@@ -1,0 +1,77 @@
+generated: '2026-08-14'
+method: probed
+source: https://open.epic.com/Endpoints/R4
+docs: https://open.epic.com/MyApps/Endpoints
+note: >-
+  Epic publishes a live, anonymous, machine-readable directory of every
+  production FHIR base URL its customers run - served as HL7 FHIR Endpoint
+  Bundles at open.epic.com/Endpoints/<version>. This is the closest thing Epic
+  operates to an RFC 9727 /.well-known/api-catalog, and it matters more than the
+  well-known probe result: the Epic FHIR API has no single production base URL,
+  because each community member hosts its own instance, so this document IS the
+  resolution layer between "Epic" and a callable host. Each entry is a FHIR
+  Endpoint resource carrying the organization name (as a contained Organization),
+  status, connectionType hl7-fhir-rest, payload type/MIME, and the base
+  `address`. Both bundles were fetched anonymously with no credentials and saved
+  verbatim; the /.well-known/api-catalog path on epic.com and open.epic.com
+  returns 404/302 (recorded in well-known/epic-systems-well-known.yml), so this
+  catalog is discoverable only from the docs, not from a well-known path.
+catalog_format: HL7 FHIR Endpoint Bundle (Bundle.type=collection)
+anonymous: true
+bundles:
+- fhir_version: R4
+  url: https://open.epic.com/Endpoints/R4
+  http_status: 200
+  file: epic-fhir-endpoints-r4.json
+  endpoint_count: 479
+  bundle_timestamp: '2026-08-14T16:06:52.428652-05:00'
+- fhir_version: DSTU2
+  url: https://open.epic.com/Endpoints/DSTU2
+  http_status: 200
+  file: epic-fhir-endpoints-dstu2.json
+  endpoint_count: 490
+  bundle_timestamp: '2026-08-14T16:06:52.8817942-05:00'
+- fhir_version: STU3
+  url: https://open.epic.com/Endpoints/STU3
+  http_status: 200
+  file: null
+  endpoint_count: 0
+  bundle_timestamp: '2026-08-14T16:06:53.7997977-05:00'
+  note: >-
+    Served and valid, but EMPTY - zero Endpoint entries. Recorded because it is
+    a real finding: STU3 remains a documented Epic FHIR version with a live
+    sandbox CapabilityStatement, yet no customer publishes an STU3 production
+    endpoint through this directory. Read alongside
+    lifecycle/epic-systems-lifecycle.yml, this is the strongest available public
+    signal of where STU3 actually stands in Epic's estate.
+endpoint_resource_fields:
+- resourceType
+- id
+- contained[] (Organization - the health system name)
+- status
+- connectionType (http://terminology.hl7.org/CodeSystem/endpoint-connection-type = hl7-fhir-rest)
+- name
+- managingOrganization
+- period
+- payloadType
+- payloadMimeType
+- address (the FHIR base URL)
+example_address: https://haiku.wacofhc.org/FHIR/api/FHIR/R4/
+interpretation: >-
+  DSTU2 (490) still outnumbers R4 (479) in published production endpoints even
+  though R4 / US Core is the version Epic directs all new development to. The
+  legacy trial-use version is not a rounding error in this estate; it is the
+  larger published surface.
+related:
+  well_known: well-known/epic-systems-well-known.yml
+  lifecycle: lifecycle/epic-systems-lifecycle.yml
+  capability_statements:
+  - fhir/epic-fhir-r4-capabilitystatement.json
+  - fhir/epic-fhir-stu3-capabilitystatement.json
+  - fhir/epic-fhir-dstu2-conformance.json
+x-evidence:
+  fetched: '2026-08-14'
+  urls:
+  - {url: 'https://open.epic.com/Endpoints/R4', http_status: 200, content_type: application/json}
+  - {url: 'https://open.epic.com/Endpoints/DSTU2', http_status: 200, content_type: application/json}
+  - {url: 'https://open.epic.com/Endpoints/STU3', http_status: 200, content_type: application/json}
