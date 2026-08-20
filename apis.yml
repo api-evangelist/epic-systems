@@ -131,6 +131,10 @@ apis:
   baseURL: https://fhir.epic.com/interconnect-fhir-oauth/oauth2
   tags:
   - SMART on FHIR
+  - Authentication
+  - Authorization
+  tags_raw:
+  - SMART on FHIR
   - OAuth2
   - Authorization
   properties:
@@ -151,6 +155,10 @@ apis:
   humanURL: https://fhir.epic.com/Documentation?docId=bulkdataaccesstutorial
   baseURL: https://fhir.epic.com/interconnect-fhir-oauth/api/FHIR/R4
   tags:
+  - FHIR
+  - Bulk Data
+  - BackendServices
+  tags_raw:
   - FHIR
   - Bulk Data
   - Backend Services
