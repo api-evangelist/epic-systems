@@ -17,6 +17,17 @@ description: >-
   CapabilityStatements are openly published. Epic is a core node of the U.S.
   healthcare interoperability landscape shaped by the ONC/CMS 21st Century Cures
   Act information-blocking rules and TEFCA.
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: false
+  label: Hosted service · you call their endpoint
+  confidence: medium
+  source:
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: enterprise
   onboarding: partner
