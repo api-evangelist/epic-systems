@@ -197,6 +197,8 @@ apis:
   - type: APIReference
     url: https://fhir.epic.com/Specifications
 common:
+- type: Pricing
+  url: https://fhir.epic.com/Documentation?docId=cms_prior_auth_playbook
 - url: https://www.epic.com/epic/newsroom/
   type: Blog
 - type: VulnerabilityDisclosure
