@@ -109,6 +109,23 @@ edges:
   direction: provider-built
   evidence: https://open.epic.com/Endpoints/R4
   category: FHIR R4 endpoint
+- partner_name: TEFCA (RCE, The Sequoia Project)
+  partner: null
+  type: contract
+  channel: network-directory
+  relationship: network-participant
+  direction: partner-built
+  evidence: https://rce.sequoiaproject.org/wp-json/wp/v2/qhins
+  contract_reference:
+    network: TEFCA (RCE, The Sequoia Project)
+    spec_file: null
+    role: QHIN
+    listed_name: Epic Nexus
+    listing_page: https://rce.sequoiaproject.org/qhins/epic-nexus/
+    network_id: 1708
+    matched_domain: epic.com
+    detected_by: sweep-health-networks.py
+    detected: '2026-10-12'
 marketplace_apps:
 - marketplace: fhir-endpoint-directory
   channel: provider-built
@@ -125,3 +142,4 @@ marketplace_apps:
     median_resource_types: 59
 checked:
 - https://open.epic.com/Endpoints/R4
+- https://rce.sequoiaproject.org/wp-json/wp/v2/qhins
