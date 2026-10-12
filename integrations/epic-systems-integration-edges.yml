@@ -1,0 +1,127 @@
+generated: '2026-10-12'
+method: searched
+edges:
+- partner_name: UCSF Benioff Children's Hospital
+  partner: ucsf
+  partner_match: domain
+  type: contract
+  channel: provider-built
+  relationship: endpoint-coverage
+  direction: provider-built
+  evidence: https://open.epic.com/Endpoints/R4
+  category: FHIR R4 endpoint
+- partner_name: University of Pittsburgh Medical Center (UPMC)
+  partner: upmc
+  partner_match: domain
+  type: contract
+  channel: provider-built
+  relationship: endpoint-coverage
+  direction: provider-built
+  evidence: https://open.epic.com/Endpoints/R4
+  category: FHIR R4 endpoint
+- partner_name: Children's Hospital of Philadelphia
+  partner: childrens-hospital-of-philadelphia
+  partner_match: domain
+  type: contract
+  channel: provider-built
+  relationship: endpoint-coverage
+  direction: provider-built
+  evidence: https://open.epic.com/Endpoints/R4
+  category: FHIR R4 endpoint
+- partner_name: UC Davis
+  partner: uc-davis
+  partner_match: domain
+  type: contract
+  channel: provider-built
+  relationship: endpoint-coverage
+  direction: provider-built
+  evidence: https://open.epic.com/Endpoints/R4
+  category: FHIR R4 endpoint
+- partner_name: UC Davis - MMC
+  partner: uc-davis
+  partner_match: domain
+  type: contract
+  channel: provider-built
+  relationship: endpoint-coverage
+  direction: provider-built
+  evidence: https://open.epic.com/Endpoints/R4
+  category: FHIR R4 endpoint
+- partner_name: TempleHealth
+  partner: temple-health
+  partner_match: domain
+  type: contract
+  channel: provider-built
+  relationship: endpoint-coverage
+  direction: provider-built
+  evidence: https://open.epic.com/Endpoints/R4
+  category: FHIR R4 endpoint
+- partner_name: University of Rochester Medical Center
+  partner: university-of-rochester
+  partner_match: domain
+  type: contract
+  channel: provider-built
+  relationship: endpoint-coverage
+  direction: provider-built
+  evidence: https://open.epic.com/Endpoints/R4
+  category: FHIR R4 endpoint
+- partner_name: UCLA Medical Center
+  partner: ucla
+  partner_match: domain
+  type: contract
+  channel: provider-built
+  relationship: endpoint-coverage
+  direction: provider-built
+  evidence: https://open.epic.com/Endpoints/R4
+  category: FHIR R4 endpoint
+- partner_name: CVS Health & Minute Clinic
+  partner: cvs-health
+  partner_match: domain
+  type: contract
+  channel: provider-built
+  relationship: endpoint-coverage
+  direction: provider-built
+  evidence: https://open.epic.com/Endpoints/R4
+  category: FHIR R4 endpoint
+- partner_name: Cigna Medical Group
+  partner: cigna
+  partner_match: domain
+  type: contract
+  channel: provider-built
+  relationship: endpoint-coverage
+  direction: provider-built
+  evidence: https://open.epic.com/Endpoints/R4
+  category: FHIR R4 endpoint
+- partner_name: OptumCare East
+  partner: optum
+  partner_match: domain
+  type: contract
+  channel: provider-built
+  relationship: endpoint-coverage
+  direction: provider-built
+  evidence: https://open.epic.com/Endpoints/R4
+  category: FHIR R4 endpoint
+- partner_name: OptumCare West
+  partner: optum
+  partner_match: domain
+  type: contract
+  channel: provider-built
+  relationship: endpoint-coverage
+  direction: provider-built
+  evidence: https://open.epic.com/Endpoints/R4
+  category: FHIR R4 endpoint
+marketplace_apps:
+- marketplace: fhir-endpoint-directory
+  channel: provider-built
+  app: epic-systems
+  url: https://open.epic.com/Endpoints/R4
+  app_count: 448
+  adapter: sweep-fhir-structure.py
+  capability_sample:
+    probed: 40
+    answered: 32
+    fhirVersions:
+      4.0.1: 32
+    smart_on_fhir: 32
+    median_resource_types: 59
+checked:
+- https://open.epic.com/Endpoints/R4
