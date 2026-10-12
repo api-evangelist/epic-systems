@@ -1,21 +1,19 @@
-# Kin Score artifact — epic-systems — 2026-09-04T212454
+# Kin Score artifact — epic-systems — 2026-10-11T110117
 # The API Evangelist rating (https://github.com/api-evangelist/kin-score). Generated; do not edit.
 ---
 kin_score:
   slug: epic-systems
-  schema_version: 0.18.3
-  scored_at: '2026-09-04'
-  run_ts: 2026-09-04T212454
-  composite: 64.1
+  schema_version: 0.23.0
+  scored_at: '2026-10-11'
+  run_ts: 2026-10-11T110117
+  composite: 59.9
   band: strong
   facets:
-    discoverability: 81.5
-    contract_quality: 46.3
-    governance: 18.2
+    discoverability: 78.6
+    contract_quality: 44.2
+    contract_governance: 18.2
     operational_transparency: 73.7
     developer_ergonomics: 63.7
-    commercial_clarity: 55.3
-    contract_governance: 18.2
     access_clarity: 55.3
   agent_readiness:
     score: 37.6
@@ -44,7 +42,7 @@ kin_score:
     applies: true
     regime: Health
     regime_id: health
-    score: 77.5
+    score: 48.4
     matched_via: tags
   provenance:
     mcp: derived
