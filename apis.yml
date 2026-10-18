@@ -45,6 +45,16 @@ image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.j
 tags:
 - Healthcare
 - United States
+- Electronic Health Records
+- FHIR
+- HL7
+- Interoperability
+- SMART on FHIR
+- US Core
+- Clinical Data
+tags_raw:
+- Healthcare
+- United States
 - EHR
 - EMR
 - FHIR
