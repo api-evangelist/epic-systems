@@ -1,4 +1,4 @@
-generated: '2026-10-12'
+generated: '2026-10-19'
 method: searched
 edges:
 - partner_name: UCSF Benioff Children's Hospital
@@ -167,10 +167,10 @@ marketplace_apps:
   adapter: sweep-fhir-structure.py
   capability_sample:
     probed: 40
-    answered: 32
+    answered: 39
     fhirVersions:
-      4.0.1: 32
-    smart_on_fhir: 32
+      4.0.1: 39
+    smart_on_fhir: 39
     median_resource_types: 59
 checked:
 - https://lantern.healthit.gov/api/daily/download
