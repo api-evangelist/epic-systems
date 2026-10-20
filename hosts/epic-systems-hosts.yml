@@ -1,0 +1,185 @@
+generated: '2026-10-20'
+method: derived
+source: the pre-flight dossier, apis.yml pointers, spec servers, well-known, vendors -- nothing fetched here
+generator: derive-hosts.py
+summary:
+  hosts: 15
+  own: 13
+  other_domain: 0
+  platform: 2
+  roles:
+  - api
+  - other
+  - portal
+  - source
+  - support
+  - website
+hosts:
+- host: api.epic.com
+  found_by:
+  - contract-discovery
+  types: []
+  serves: []
+  registrable_domain: epic.com
+  role: api
+  relation: own
+- host: careers.epic.com
+  found_by:
+  - probed
+  - site-links
+  - contract-discovery
+  - well-known
+  types: []
+  serves: []
+  registrable_domain: epic.com
+  role: other
+  relation: own
+- host: cosmos.epic.com
+  found_by:
+  - probed
+  - site-links
+  - well-known
+  types: []
+  serves: []
+  registrable_domain: epic.com
+  role: other
+  relation: own
+- host: efficiency.epic.com
+  found_by:
+  - probed
+  - site-links
+  - well-known
+  types: []
+  serves: []
+  registrable_domain: epic.com
+  role: other
+  relation: own
+- host: fhir.epic.com
+  found_by:
+  - pointer
+  - apis[]
+  - probed
+  - docs-index
+  - contract-discovery
+  - well-known
+  types:
+  - Pricing
+  - DeveloperPortal
+  - Documentation
+  - APIReference
+  - GettingStarted
+  - SignUp
+  - TermsOfService
+  - Deprecation
+  serves:
+  - api
+  - docs
+  registrable_domain: epic.com
+  role: portal
+  relation: own
+- host: github.com
+  found_by:
+  - pointer
+  types:
+  - GitHubOrganization
+  serves: []
+  registrable_domain: github.com
+  role: source
+  relation: platform
+- host: help.epic.com
+  found_by:
+  - probed
+  - site-links
+  - docs-index
+  - well-known
+  types: []
+  serves:
+  - docs
+  registrable_domain: epic.com
+  role: support
+  relation: own
+- host: link.epic.com
+  found_by:
+  - probed
+  - site-links
+  - well-known
+  types: []
+  serves: []
+  registrable_domain: epic.com
+  role: other
+  relation: own
+- host: open.epic.com
+  found_by:
+  - pointer
+  - probed
+  - site-links
+  - contract-discovery
+  - well-known
+  types:
+  - Support
+  - Portal
+  serves: []
+  registrable_domain: epic.com
+  role: support
+  relation: own
+- host: showroom.epic.com
+  found_by:
+  - probed
+  - site-links
+  types: []
+  serves: []
+  registrable_domain: epic.com
+  role: other
+  relation: own
+- host: training.epic.com
+  found_by:
+  - probed
+  - site-links
+  types: []
+  serves: []
+  registrable_domain: epic.com
+  role: other
+  relation: own
+- host: userweb.epic.com
+  found_by:
+  - probed
+  - site-links
+  types: []
+  serves: []
+  registrable_domain: epic.com
+  role: other
+  relation: own
+- host: www.epic.com
+  found_by:
+  - pointer
+  - probed
+  - contract-discovery
+  - well-known
+  types:
+  - Newsroom
+  - Blog
+  - Website
+  - Security
+  - PrivacyPolicy
+  serves: []
+  registrable_domain: epic.com
+  role: website
+  relation: own
+- host: www.linkedin.com
+  found_by:
+  - pointer
+  types:
+  - LinkedIn
+  serves: []
+  registrable_domain: linkedin.com
+  role: other
+  relation: platform
+- host: xgm.epic.com
+  found_by:
+  - probed
+  - site-links
+  types: []
+  serves: []
+  registrable_domain: epic.com
+  role: other
+  relation: own

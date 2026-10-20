@@ -1,5 +1,33 @@
-generated: '2026-10-19'
+generated: '2026-10-20'
 method: searched
+source:
+- https://lantern.healthit.gov/api/daily/download
+- https://www.fda.gov/medical-devices/software-medical-device-samd/artificial-intelligence-enabled-medical-devices
+- https://open.epic.com/Endpoints/R4
+checked:
+- https://lantern.healthit.gov/api/daily/download
+- https://open.epic.com/Endpoints/R4
+- https://rce.sequoiaproject.org/wp-json/wp/v2/qhins
+- https://www.fda.gov/medical-devices/software-medical-device-samd/artificial-intelligence-enabled-medical-devices
+- https://composio.dev/toolkits/epic-systems
+- https://monid.ai/tools/epic-systems
+- https://n8n.io/integrations/epic-systems/
+- https://zapier.com/apps/epic-systems/integrations
+summary: null
+marketplace_apps:
+- marketplace: fhir-endpoint-directory
+  channel: provider-built
+  app: epic-systems
+  url: https://open.epic.com/Endpoints/R4
+  app_count: 448
+  adapter: sweep-fhir-structure.py
+  capability_sample:
+    probed: 40
+    answered: 39
+    fhirVersions:
+      4.0.1: 39
+    smart_on_fhir: 39
+    median_resource_types: 59
 edges:
 - partner_name: UCSF Benioff Children's Hospital
   partner: ucsf
@@ -158,25 +186,4 @@ edges:
     detected: '2026-10-18'
   detected_by: sweep-medtech.py
   first_seen: '2026-10-18'
-marketplace_apps:
-- marketplace: fhir-endpoint-directory
-  channel: provider-built
-  app: epic-systems
-  url: https://open.epic.com/Endpoints/R4
-  app_count: 448
-  adapter: sweep-fhir-structure.py
-  capability_sample:
-    probed: 40
-    answered: 39
-    fhirVersions:
-      4.0.1: 39
-    smart_on_fhir: 39
-    median_resource_types: 59
-checked:
-- https://lantern.healthit.gov/api/daily/download
-- https://open.epic.com/Endpoints/R4
-- https://rce.sequoiaproject.org/wp-json/wp/v2/qhins
-- https://www.fda.gov/medical-devices/software-medical-device-samd/artificial-intelligence-enabled-medical-devices
-source:
-- https://lantern.healthit.gov/api/daily/download
-- https://www.fda.gov/medical-devices/software-medical-device-samd/artificial-intelligence-enabled-medical-devices
+templates: []

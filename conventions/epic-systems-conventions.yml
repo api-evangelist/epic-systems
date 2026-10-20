@@ -25,6 +25,9 @@ idempotency:
     advertised: false
     note: The sandbox R4 CapabilityStatement does not advertise conditionalCreate (If-None-Exist), so
       POST create is not guaranteed idempotent in this deployment.
+  coverage: none
+  coverage_note: No idempotency-key / replay-protection mechanism is documented; only HTTP-semantic idempotency
+    of PUT and ETag/If-Match concurrency. FHIR create (POST) carries no replay protection.
 pagination:
   style: fhir-bundle-links
   detail: search-type interactions return a searchset Bundle. Page size is requested with _count; navigation

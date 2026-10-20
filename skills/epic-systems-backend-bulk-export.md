@@ -1,5 +1,6 @@
 ---
-name: Export a population from Epic with FHIR Bulk Data
+name: epic-systems-backend-bulk-export
+title: Export a population from Epic with FHIR Bulk Data
 description: Authenticate a backend service with client-credentials + private_key_jwt and run a Group $export against an Epic FHIR R4 endpoint, then poll and fetch the NDJSON files.
 api: fhir/epic-fhir-r4-capabilitystatement.json
 fhir_version: 4.0.1

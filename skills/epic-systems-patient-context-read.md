@@ -1,5 +1,6 @@
 ---
-name: Read a patient's clinical record from Epic (patient-context SMART app)
+name: epic-systems-patient-context-read
+title: Read a patient's clinical record from Epic (patient-context SMART app)
 description: Authorize a patient-facing SMART on FHIR app against an Epic FHIR R4 endpoint and read the authorized patient's problems, medications, allergies, labs and documents.
 api: fhir/epic-fhir-r4-capabilitystatement.json
 fhir_version: 4.0.1

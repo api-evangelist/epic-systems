@@ -1,5 +1,6 @@
 ---
-name: Write data back into an Epic chart
+name: epic-systems-write-back-observation
+title: Write data back into an Epic chart
 description: File patient-generated readings, allergies, conditions and clinical documents into an Epic chart using the eleven R4 resources that actually advertise create.
 api: fhir/epic-fhir-r4-capabilitystatement.json
 fhir_version: 4.0.1

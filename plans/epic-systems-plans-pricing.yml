@@ -1,23 +1,20 @@
 generated: '2026-08-14'
 method: searched
-source: https://fhir.epic.com/Documentation?docId=cms_prior_auth_playbook
+source: https://fhir.epic.com/Documentation?docId=developerguidelines
+name: Epic Systems API Plans
 docs:
 - https://fhir.epic.com/Developer/Index
 - https://fhir.epic.com/Documentation?docId=epiconfhirrequestprocess
 - https://www.epic.com/about/
-note: >-
-  Epic Systems publishes no price list of any kind. The EHR platform itself is
-  sold enterprise-direct to health systems under a negotiated contract with no
-  public rate card, no online sign-up and no self-serve purchase path; that part
-  is a plain "contact us" enterprise sale. What Epic DOES state publicly is the
-  cost posture of its DEVELOPER programs, and those statements are recorded
-  below because they are the tiers a developer actually chooses between. Epic on
-  FHIR is explicitly free: "Epic on FHIR offers free app creation services and
-  API access to all developers." Vendor Services is a separate, optional
-  membership program offering individualized assistance and connectivity testing
-  - Epic does not publish its fee. Both are gates on ACCESS, not metered API
-  pricing: neither program bills per API call, and production access is granted
-  by each connected health system rather than purchased from Epic.
+note: 'Epic Systems publishes no price list of any kind. The EHR platform itself is sold enterprise-direct
+  to health systems under a negotiated contract with no public rate card, no online sign-up and no self-serve
+  purchase path; that part is a plain "contact us" enterprise sale. What Epic DOES state publicly is the
+  cost posture of its DEVELOPER programs, and those statements are recorded below because they are the
+  tiers a developer actually chooses between. Epic on FHIR is explicitly free: "Epic on FHIR offers free
+  app creation services and API access to all developers." Vendor Services is a separate, optional membership
+  program offering individualized assistance and connectivity testing - Epic does not publish its fee.
+  Both are gates on ACCESS, not metered API pricing: neither program bills per API call, and production
+  access is granted by each connected health system rather than purchased from Epic.'
 pricing_model: enterprise-contract + free developer program
 metered_api_billing: false
 public_price_list: false
@@ -37,13 +34,14 @@ plans:
   - Public sandbox with published test patients and Bulk Data test Group
   - API specifications, Try It console, and OAuth 2.0 / SMART on FHIR documentation
   limits:
-  - Sandbox use is self-serve; PRODUCTION access still requires each connected health system to download and enable the app.
+  - Sandbox use is self-serve; PRODUCTION access still requires each connected health system to download
+    and enable the app.
   - No published rate limits; per-customer InterConnect throughput applies (see rate-limits/).
   url: https://fhir.epic.com/Developer/Index
   source_quote: Epic on FHIR offers free app creation services and API access to all developers.
+  price_text: Epic on FHIR offers free app creation services and API access to all developers.
 - name: Vendor Services
   audience: Epic community members and vendors seeking hands-on support
-  price: null
   price_display: Not published
   currency: null
   billing_period: null
@@ -56,10 +54,10 @@ plans:
   limits:
   - Membership program; Epic publishes no fee, term, or tier structure for it.
   url: https://vendorservices.epic.com/
-  note: >-
-    Non-community members can JOIN Vendor Services to create applications and
-    receive support. Epic states the benefits but not the cost, so price is
-    recorded as null rather than guessed.
+  note: Non-community members can JOIN Vendor Services to create applications and receive support. Epic
+    states the benefits but not the cost, so price is recorded as null rather than guessed.
+  price_text: optional technical support from Epic through Vendor Services at an hourly billable rate
+  price_note: Epic states the support is billed hourly but publishes no rate.
 adjacent_programs:
   note: Named by Epic as accelerators attached to certain product categories, not as purchasable plans.
   programs:
@@ -69,10 +67,9 @@ adjacent_programs:
     url: https://showroom.epic.com/
     detail: Designation/listing surface where qualifying products are highlighted to Epic customers.
 enterprise_platform:
-  detail: >-
-    The Epic EHR itself (Hyperspace, MyChart, Cogito, and the clinical modules)
-    is licensed to health systems under negotiated enterprise agreements. No
-    price, tier, or quote calculator is published anywhere on epic.com.
+  detail: The Epic EHR itself (Hyperspace, MyChart, Cogito, and the clinical modules) is licensed to health
+    systems under negotiated enterprise agreements. No price, tier, or quote calculator is published anywhere
+    on epic.com.
   contact: https://www.epic.com/contact/
 related:
   rate_limits: rate-limits/epic-systems-rate-limits.yml
@@ -96,3 +93,8 @@ x-canonical:
     model_how: derived
     units: []
     periods: []
+audience: developer-api
+pricing_basis: free
+published: false
+delivery:
+  delivery: managed

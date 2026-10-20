@@ -1,7 +1,11 @@
 aid: epic-systems
+
 url: https://raw.githubusercontent.com/api-evangelist/epic-systems/refs/heads/main/apis.yml
+
 name: Epic Systems
+
 kind: company
+
 description: >-
   Epic Systems Corporation is a privately held electronic health record (EHR/EMR)
   software company founded in 1979 and headquartered in Verona, Wisconsin, United
@@ -17,6 +21,7 @@ description: >-
   CapabilityStatements are openly published. Epic is a core node of the U.S.
   healthcare interoperability landscape shaped by the ONC/CMS 21st Century Cures
   Act information-blocking rules and TEFCA.
+
 deliveryModel:
   model: saas
   open_source: false
@@ -28,6 +33,7 @@ deliveryModel:
   - pricing
   generated: '2026-08-28'
   method: derived
+
 accessModel:
   pricing: enterprise
   onboarding: partner
@@ -41,7 +47,9 @@ accessModel:
   - well-known
   generated: '2026-07-24'
   method: derived
+
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+
 tags:
 - Healthcare
 - United States
@@ -52,6 +60,7 @@ tags:
 - SMART on FHIR
 - US Core
 - Clinical Data
+
 tags_raw:
 - Healthcare
 - United States
@@ -63,14 +72,105 @@ tags_raw:
 - SMART on FHIR
 - US Core
 - Clinical Data
+
 created: '2026-07-24'
+
 modified: '2026-10-06'
+
 specificationVersion: '0.23'
+
 x-enrichment:
-  date: '2026-08-14'
+  date: '2026-10-20'
   status: enriched
-  artifacts_added: 14
-  pass: local-v1
+  artifacts_added: 0
+  pass: local-v5
+
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com
+
+common:
+- type: ErrorCatalog
+  url: errors/epic-systems-error-codes.yml
+- type: Hosts
+  url: hosts/epic-systems-hosts.yml
+- type: IntegrationEdges
+  url: integrations/epic-systems-integration-edges.yml
+- type: Newsroom
+  url: https://www.epic.com/epic/newsroom
+- type: Pricing
+  url: https://fhir.epic.com/Documentation?docId=cms_prior_auth_playbook
+- url: https://www.epic.com/epic/newsroom/
+  type: Blog
+- type: VulnerabilityDisclosure
+  url: security/epic-systems-vulnerability-disclosure.yml
+- type: DomainSecurity
+  url: security/epic-systems-domain-security.yml
+- type: Website
+  url: https://www.epic.com/
+- type: DeveloperPortal
+  url: https://fhir.epic.com/
+- type: Documentation
+  url: https://fhir.epic.com/Documentation
+- type: APIReference
+  url: https://fhir.epic.com/Specifications
+- type: GettingStarted
+  url: https://fhir.epic.com/Documentation?docId=fhirtutorial
+- type: Authentication
+  url: authentication/epic-systems-authentication.yml
+- type: SignUp
+  url: https://fhir.epic.com/Developer/Index
+- type: TermsOfService
+  url: https://fhir.epic.com/Download/ApiLicenseAgreement
+- type: LinkedIn
+  url: https://www.linkedin.com/company/epic1979/
+- type: WellKnown
+  url: well-known/epic-systems-well-known.yml
+- type: SecurityTxt
+  url: well-known/epic-systems-security.txt
+- type: OAuthScopes
+  url: scopes/epic-systems-scopes.yml
+- type: Conformance
+  url: conformance/epic-systems-conformance.yml
+- type: Conventions
+  url: conventions/epic-systems-conventions.yml
+- type: Idempotency
+  url: conventions/epic-systems-conventions.yml
+- type: ErrorCatalog
+  url: errors/epic-systems-problem-types.yml
+- type: DataModel
+  url: data-model/epic-systems-data-model.yml
+- type: Lifecycle
+  url: lifecycle/epic-systems-lifecycle.yml
+- type: Webhooks
+  url: asyncapi/epic-systems-cds-hooks-webhooks.yml
+- type: Security
+  url: https://www.epic.com/epic/page/reporting-potential-security-vulnerability/
+- type: Sandbox
+  url: sandbox/epic-systems-sandbox.yml
+- type: ErrorCodes
+  url: errors/epic-systems-error-codes.yml
+- type: ChangeLog
+  url: changelog/epic-systems-changelog.yml
+- type: Deprecation
+  url: https://fhir.epic.com/Documentation?docId=developerguidelines
+- type: RateLimits
+  url: rate-limits/epic-systems-rate-limits.yml
+- type: Plans
+  url: plans/epic-systems-plans-pricing.yml
+- type: AgentSkill
+  url: skills/_index.yml
+- type: APICatalog
+  url: fhir/epic-systems-endpoint-catalog.yml
+- type: Support
+  url: https://open.epic.com/Home/Contact
+- type: PrivacyPolicy
+  url: https://www.epic.com/privacypolicies/
+- type: Portal
+  url: https://open.epic.com/
+- type: GitHubOrganization
+  url: https://github.com/epic-open-source
+
 apis:
 - aid: epic-systems:epic-fhir-r4-api
   name: Epic FHIR R4 API
@@ -206,81 +306,12 @@ apis:
     url: https://fhir.epic.com/Documentation?docId=cdshookstutorial
   - type: APIReference
     url: https://fhir.epic.com/Specifications
-common:
-- type: Pricing
-  url: https://fhir.epic.com/Documentation?docId=cms_prior_auth_playbook
-- url: https://www.epic.com/epic/newsroom/
-  type: Blog
-- type: VulnerabilityDisclosure
-  url: security/epic-systems-vulnerability-disclosure.yml
-- type: DomainSecurity
-  url: security/epic-systems-domain-security.yml
-- type: Website
-  url: https://www.epic.com/
-- type: DeveloperPortal
-  url: https://fhir.epic.com/
-- type: Documentation
-  url: https://fhir.epic.com/Documentation
-- type: APIReference
-  url: https://fhir.epic.com/Specifications
-- type: GettingStarted
-  url: https://fhir.epic.com/Documentation?docId=fhirtutorial
-- type: Authentication
-  url: authentication/epic-systems-authentication.yml
-- type: SignUp
-  url: https://fhir.epic.com/Developer/Index
-- type: TermsOfService
-  url: https://fhir.epic.com/Download/ApiLicenseAgreement
-- type: LinkedIn
-  url: https://www.linkedin.com/company/epic1979/
-- type: WellKnown
-  url: well-known/epic-systems-well-known.yml
-- type: SecurityTxt
-  url: well-known/epic-systems-security.txt
-- type: OAuthScopes
-  url: scopes/epic-systems-scopes.yml
-- type: Conformance
-  url: conformance/epic-systems-conformance.yml
-- type: Conventions
-  url: conventions/epic-systems-conventions.yml
-- type: Idempotency
-  url: conventions/epic-systems-conventions.yml
-- type: ErrorCatalog
-  url: errors/epic-systems-problem-types.yml
-- type: DataModel
-  url: data-model/epic-systems-data-model.yml
-- type: Lifecycle
-  url: lifecycle/epic-systems-lifecycle.yml
-- type: Webhooks
-  url: asyncapi/epic-systems-cds-hooks-webhooks.yml
-- type: LLMsTxt
-  url: llms/epic-systems-llms.txt
-- type: Security
-  url: https://www.epic.com/epic/page/reporting-potential-security-vulnerability/
-- type: Packages
-  url: packages/epic-systems-packages.yml
-- type: Sandbox
-  url: sandbox/epic-systems-sandbox.yml
-- type: ErrorCodes
-  url: errors/epic-systems-error-codes.yml
-- type: ChangeLog
-  url: changelog/epic-systems-changelog.yml
-- type: Deprecation
-  url: https://fhir.epic.com/Documentation?docId=developerguidelines
-- type: RateLimits
-  url: rate-limits/epic-systems-rate-limits.yml
-- type: Plans
-  url: plans/epic-systems-plans-pricing.yml
-- type: AgentSkill
-  url: skills/_index.yml
-- type: APICatalog
-  url: fhir/epic-systems-endpoint-catalog.yml
-- type: Support
-  url: https://open.epic.com/Home/Contact
-- type: PrivacyPolicy
-  url: https://www.epic.com/privacypolicies/
-- type: Portal
-  url: https://open.epic.com/
-maintainers:
-- FN: Kin Lane
-  email: kin@apievangelist.com
+
+x-coverage:
+  state: covered
+  reason: covered
+  detail: Epic publishes live, anonymously readable FHIR R4/STU3/DSTU2 CapabilityStatements and a SMART configuration at fhir.epic.com, which are the machine-readable contracts captured in fhir/.
+  evidence:
+  - url: https://fhir.epic.com/Specifications
+    status: 200
+  checked: '2026-10-20'
