@@ -25,6 +25,8 @@ checked:
 - https://www.ga4gh.org/community/organizational-members/
 - https://www.ga4gh.org/our-products/
 - https://www.ga4gh.org/our-products/implementations/
+- https://health-products.canada.ca/api/medical-devices/company/?lang=en&type=json
+- https://health-products.canada.ca/api/medical-devices/licence/?lang=en&type=json
 summary: null
 marketplace_apps:
 - marketplace: fhir-endpoint-directory
@@ -426,5 +428,43 @@ edges:
     detected_by: sweep-ga4gh-genomics-standards.py
     detected: '2026-10-22'
   detected_by: sweep-ga4gh-genomics-standards.py
+  first_seen: '2026-10-22'
+- partner_name: Health Canada (Medical Device Licence)
+  partner: null
+  partner_match: register
+  type: contract
+  channel: regulator-register
+  relationship: standard-participant
+  direction: partner-built
+  evidence: https://health-products.canada.ca/api/medical-devices/company/?id=169080&lang=en&type=json
+  category: Canadian medical device licence
+  contract_reference:
+    register: Health Canada Medical Devices Active Licence Listing (MDALL) public API (health-products.canada.ca/api/medical-devices)
+    standard: Canada Medical Devices Regulations (SOR/98-282), Medical Device Licence
+    spec_file: null
+    role: licence-holder
+    registered_name: EPIC SYSTEMS CORPORATION
+    register_country: US
+    register_id: https://health-products.canada.ca/api/medical-devices/company/?id=169080&lang=en&type=json
+    company_status: A
+    matched_domain: epic.com
+    matched_by: domain
+    certified_products:
+    - product: Health Canada Medical Device Licence, Class III
+      product_type: Class III
+      risk_class: 3
+      lapsed: false
+      first_issued: '2025-09-12'
+      conditional: true
+      licences_sample:
+      - DETERIORATION INDEX
+    signal_note: certified_products = one entry per device RISK CLASS licensed by Health Canada, lapsed when no
+      licence of that class is still issued (status I / D, no end date); licence names are a sample, licence and
+      device counts are context, never counted
+    detected_by: sweep-canada-medical-device-licensing.py
+    detected: '2026-10-22'
+    identity: wikidata Q5382468 'Epic' P856 http://www.epic.com/
+    identity_source: wikidata P856 (labelled provenance step; Kin 2026-10-15 decision 1)
+  detected_by: sweep-canada-medical-device-licensing.py
   first_seen: '2026-10-22'
 templates: []
