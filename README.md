@@ -1,4 +1,4 @@
-# Epic Systems (epic-systems)
+# Epic Systems
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -64,110 +64,132 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-Epic Systems Corporation is a privately held electronic health record (EHR/EMR) software company founded in 1979 and headquartered in Verona, Wisconsin, United States. Its "Epic on FHIR" developer program (fhir.epic.com / open.epic.com) exposes a standards-based HL7 FHIR interoperability surface for patient- and provider-facing apps, with live public sandbox endpoints across FHIR R4 (4.0.1), STU3 (3.0.1), and DSTU2 (1.0.2), SMART on FHIR / OAuth 2.0 authorization, FHIR Bulk Data ($export), and CDS Hooks. Epic is a core node of the U.S. healthcare interoperability landscape shaped by the ONC/CMS 21st Century Cures Act information-blocking rules and TEFCA.
+Epic Systems Corporation is a privately held electronic health record (EHR/EMR) software company founded in 1979 and headquartered in Verona, Wisconsin, United States. Epic's software supports the medical records of a large share of U.S. hospital systems and academic medical centers, and its "Epic on FHIR" developer program (fhir.epic.com / open.epic.com) exposes a standards-based HL7 FHIR interoperability surface for patient- and provider-facing apps. Epic serves live, public sandbox FHIR endpoints across three FHIR versions - R4 (4.0.1), STU3 (3.0.1), and DSTU2 (1.0.2) - aligned to the US Core implementation guides, with SMART on FHIR / OAuth 2.0 authorization, CDS Hooks, and FHIR Bulk Data ($export) access. Production access requires client registration and a health system's participation; the developer sandbox, specifications, and CapabilityStatements are openly published. Epic is a core node of the U.S. healthcare interoperability landscape shaped by the ONC/CMS 21st Century Cures Act information-blocking rules and TEFCA.
 
-**APIs.json:** [https://raw.githubusercontent.com/api-evangelist/epic-systems/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/epic-systems/refs/heads/main/apis.yml)
+**Areas:** Healthcare · United States · Electronic Health Records · FHIR · HL7 · Interoperability · SMART on FHIR · US Core · Clinical Data
 
-## Tags
+## Epic Systems on APIs.io
 
-- Healthcare
-- United States
-- EHR
-- EMR
-- FHIR
-- HL7
-- Interoperability
-- SMART on FHIR
-- US Core
-- Clinical Data
+Everything profiled for Epic Systems is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/epic-systems/](https://apis.io/providers/epic-systems/)** — or go straight to one of the APIs or properties below.
 
-## Timestamps
+### APIs (6)
 
-- **Created:** 2026-07-24
-- **Modified:** 2026-07-24
+- [Epic FHIR R4 API](https://apis.io/apis/epic-systems/epic-fhir-r4-api/) — Epic's HL7 FHIR R4 (4.0.1) REST API, aligned to the US Core implementation guides and exposing 59 resource types (Patient, Encounter, Observation,…
+- [Epic FHIR STU3 API](https://apis.io/apis/epic-systems/epic-fhir-stu3-api/) — Epic's HL7 FHIR STU3 (3.0.1) REST API for clinical and administrative resources, authorized with SMART on FHIR / OAuth 2.0. A live public sandbox…
+- [Epic FHIR DSTU2 API](https://apis.io/apis/epic-systems/epic-fhir-dstu2-api/) — Epic's HL7 FHIR DSTU2 (1.0.2) REST API, published as a FHIR Conformance resource covering the legacy DSTU2 resource set. A live public sandbox Conformance…
+- [Epic SMART on FHIR Authorization](https://apis.io/apis/epic-systems/epic-smart-on-fhir-authorization/) — Epic's SMART on FHIR / OAuth 2.0 authorization surface backing the FHIR APIs. The live .well-known/smart-configuration advertises authorize/token endpoints,…
+- [Epic FHIR Bulk Data Access API](https://apis.io/apis/epic-systems/epic-fhir-bulk-data-api/) — Epic's implementation of the HL7 FHIR Bulk Data Access (Flat FHIR) specification, providing backend system-level population export via the $export…
+- [Epic CDS Hooks API](https://apis.io/apis/epic-systems/epic-cds-hooks-api/) — Epic's support for the CDS Hooks specification, letting external clinical decision support services return cards and SMART app launch links at documented…
 
-## APIs
+### Published properties
 
-### Epic FHIR R4 API
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-Epic's HL7 FHIR R4 (4.0.1) REST API, aligned to the US Core implementation guides, exposing 59 resource types with read, search, create, and update interactions, authorized with SMART on FHIR / OAuth 2.0.
+#### AsyncAPI (1)
 
-- **Human URL:** [https://fhir.epic.com/Specifications](https://fhir.epic.com/Specifications)
-- **Base URL:** `https://fhir.epic.com/interconnect-fhir-oauth/api/FHIR/R4`
+Event-driven and webhook contracts.
 
-#### Properties
+- [Epic Systems Cds Hooks Webhooks](https://apis.io/asyncapis/epic-systems/epic-systems-cds-hooks-webhooks/)
 
-- [CapabilityStatement](fhir/epic-fhir-r4-capabilitystatement.json) — harvested verbatim from the live R4 `metadata` endpoint
-- [SMART Configuration](fhir/epic-fhir-r4-smart-configuration.json)
-- [Documentation](https://fhir.epic.com/Documentation?docId=fhirtutorial)
-- [API Reference](https://fhir.epic.com/Specifications)
-- [Authentication](https://fhir.epic.com/Documentation?docId=oauth2)
+#### MCP servers (1)
 
-### Epic FHIR STU3 API
+Model Context Protocol servers that expose the API to agents.
 
-Epic's HL7 FHIR STU3 (3.0.1) REST API for clinical and administrative resources, authorized with SMART on FHIR / OAuth 2.0.
+- [epic-systems-mcp.yml](https://apis.io/servers/epic-systems/epic-systems-mcp-yml/)
 
-- **Human URL:** [https://fhir.epic.com/Specifications](https://fhir.epic.com/Specifications)
-- **Base URL:** `https://fhir.epic.com/interconnect-fhir-oauth/api/FHIR/STU3`
+#### Security (3)
 
-#### Properties
+Authentication, trust centre, and vulnerability disclosure.
 
-- [CapabilityStatement](fhir/epic-fhir-stu3-capabilitystatement.json) — harvested verbatim
-- [Documentation](https://fhir.epic.com/Documentation?docId=fhirtutorial)
-- [API Reference](https://fhir.epic.com/Specifications)
+- [Epic Systems Authentication](https://apis.io/security/epic-systems/epic-systems-authentication/)
+- [Epic Systems Domain Security](https://apis.io/security/epic-systems/epic-systems-domain-security/)
+- [Epic Systems Vulnerability Disclosure](https://apis.io/security/epic-systems/epic-systems-vulnerability-disclosure/)
 
-### Epic FHIR DSTU2 API
+#### OAuth scopes (1)
 
-Epic's HL7 FHIR DSTU2 (1.0.2) REST API, published as a FHIR Conformance resource covering the legacy DSTU2 resource set.
+The permissions the API asks for.
 
-- **Human URL:** [https://fhir.epic.com/Specifications](https://fhir.epic.com/Specifications)
-- **Base URL:** `https://fhir.epic.com/interconnect-fhir-oauth/api/FHIR/DSTU2`
+- [Epic Systems Scopes](https://apis.io/scopes/epic-systems/epic-systems-scopes/)
 
-#### Properties
+#### Plans and pricing (1)
 
-- [Conformance](fhir/epic-fhir-dstu2-conformance.json) — harvested verbatim
-- [Documentation](https://fhir.epic.com/Documentation?docId=fhirtutorial)
-- [API Reference](https://fhir.epic.com/Specifications)
+Published plans, tiers and prices.
 
-### Epic SMART on FHIR Authorization
+- [Epic Systems Plans Pricing](https://apis.io/plans/epic-systems/epic-systems-plans-pricing/)
 
-Epic's SMART on FHIR / OAuth 2.0 authorization surface backing the FHIR APIs, with EHR and standalone launch, confidential/asymmetric clients, OpenID Connect, and SMART v1/v2 permission scopes.
+#### Rate limits (1)
 
-- **Human URL:** [https://fhir.epic.com/Documentation?docId=oauth2](https://fhir.epic.com/Documentation?docId=oauth2)
-- **Base URL:** `https://fhir.epic.com/interconnect-fhir-oauth/oauth2`
+Published request limits.
 
-#### Properties
+- [Epic Systems Rate Limits](https://apis.io/rate-limits/epic-systems/epic-systems-rate-limits/)
 
-- [SMART Configuration](fhir/epic-fhir-r4-smart-configuration.json) — harvested verbatim
-- [Documentation](https://fhir.epic.com/Documentation?docId=oauth2)
-- [Authentication](authentication/epic-systems-authentication.yml)
+## Where to find this API
 
-### Epic FHIR Bulk Data Access API
-
-Epic's implementation of the HL7 FHIR Bulk Data Access (Flat FHIR) `$export` operation for backend, system-level population export, authorized with OAuth 2.0 client-credentials (asymmetric client authentication).
-
-- **Human URL:** [https://fhir.epic.com/Documentation?docId=bulkdataaccesstutorial](https://fhir.epic.com/Documentation?docId=bulkdataaccesstutorial)
-- **Base URL:** `https://fhir.epic.com/interconnect-fhir-oauth/api/FHIR/R4`
-
-### Epic CDS Hooks API
-
-Epic's support for the CDS Hooks specification, letting external clinical decision support services return cards and SMART app launch links at documented workflow hook points inside the Epic EHR.
-
-- **Human URL:** [https://fhir.epic.com/Documentation?docId=cdshookstutorial](https://fhir.epic.com/Documentation?docId=cdshookstutorial)
-
-## Common Properties
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
 
 - [Website](https://www.epic.com/)
-- [Developer Portal](https://fhir.epic.com/)
 - [Documentation](https://fhir.epic.com/Documentation)
-- [API Reference](https://fhir.epic.com/Specifications)
-- [Getting Started](https://fhir.epic.com/Documentation?docId=fhirtutorial)
-- [Authentication](authentication/epic-systems-authentication.yml)
-- [Sign Up / Client Registration](https://fhir.epic.com/Developer/Index)
-- [Terms of Service (API License Agreement)](https://fhir.epic.com/Download/ApiLicenseAgreement)
-- [LinkedIn](https://www.linkedin.com/company/epic1979/)
+- [Getting started](https://fhir.epic.com/Documentation?docId=fhirtutorial)
+- [API reference](https://fhir.epic.com/Specifications)
+- [Pricing](https://fhir.epic.com/Documentation?docId=cms_prior_auth_playbook)
+- [Sign up](https://fhir.epic.com/Developer/Index)
+- [Support](https://open.epic.com/Home/Contact)
+- [Blog](https://www.epic.com/epic/newsroom/)
+- [Security](https://www.epic.com/epic/page/reporting-potential-security-vulnerability/)
+- [Terms of service](https://fhir.epic.com/Download/ApiLicenseAgreement)
+- [Privacy policy](https://www.epic.com/privacypolicies/)
 
-## Maintainers
+## API Evangelist rating
 
-**FN:** Kin Lane
-**Email:** kin@apievangelist.com
+**Kin Score 62.5** — strong · rubric 0.25.0 · scored 2026-10-23
+
+| Facet | Score |
+|---|---|
+| Discoverability | 78.6 |
+| Contract quality | 44.2 |
+| Contract governance | 18.2 |
+| Operational transparency | 73.7 |
+| Developer ergonomics | 66.1 |
+| Access clarity | 65.8 |
+
+**Agent readiness 37.6** — agent-ready
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | — |
+| Reversibility Documented | — |
+| MCP Server | — |
+| Auth Clarity | served (partial credit) |
+| Idempotency | documented (partial credit) |
+| Error Semantics | documented (partial credit) |
+| OpenAPI Examples | — |
+| Rate Limit Signal | documented (partial credit) |
+| Event Surface Described | yes |
+| Agent Skills | derived (partial credit) |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | served (partial credit) |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+| Pagination Ratio | na |
+| Operation Distinctiveness | na |
+
+**Regulatory alignment 48.4** — Health
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/epic-systems/](https://apis.io/providers/epic-systems/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Epic Systems: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/epic-systems/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
